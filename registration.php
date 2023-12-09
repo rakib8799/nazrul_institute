@@ -42,7 +42,7 @@ if (isset($_POST['signup'])) {
                     if ($count > 0) {
                         echo "<p class='text-danger fw-bold text-center fs-5 mt-3'>Email Already Exists</p>";
                     } else {
-                        $insert_data = "INSERT INTO `author_information`(`author_name`,`author_email`, `author_contact_no`,`author_password`,`author_role`,`verification_code`, `email_verified_at`) VALUES ('$name','$email','$contact','$encrypted_password','$role_as','$verification_code',NULL)";
+                        $insert_data = "INSERT INTO `author_information`(`author_name`,`author_email`, `author_contact_no`,`author_password`,`author_role`,`image`,`verification_code`, `email_verified_at`) VALUES ('$name','$email','$contact','$encrypted_password','$role_as',NULL,'$verification_code',NULL)";
                         $insert_query = mysqli_query($conn, $insert_data);
                         if ($insert_query) {
                             // $_SESSION['verification_code'] = $verification_code;

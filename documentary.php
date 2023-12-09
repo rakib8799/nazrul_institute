@@ -28,22 +28,22 @@
                                     <h5 class="card-title primary_color" style="height: 6vh;"><?php echo $title; ?></h5>
                                     <p class="card-text" style="height: 3vh;"><?php echo $screenplay_name; ?></p>
                                     <!-- <a href="./Files/documentary/pdf_file/<?php echo $pdf_file ?>" target="_blank" class="btn btn-primary">ডাউনলোড</a> -->
-                                    <!-- <a href="<?php if (isset($pdf_file)) { ?>./Files/documentary/pdf_file/<?php echo $pdf_file;
-                                                                                                            } else {
-                                                                                                                ?>
-published_book.php                                                                                                                <?php
-                                                                                                                                } ?>" target="_blank" class="btn btn-primary" <?php if ($pdf_file === "") {
-                                                                                                                                                                                ?> onclick="return confirm_download()" <?php                                                              } ?>>ডাউনলোড</a>
+                                    <a href="<?php if (isset($pdf_file) && $pdf_file !== "") { ?>./Files/documentary/pdf_file/<?php echo $pdf_file;
+                                                                                                                            } else {
+                                                                                                                                ?>
+documentary.php                                                                                                                <?php
+                                                                                                                            } ?>" class="btn btn-primary" <?php if ($pdf_file === "") {
+                                                                                                                                                            ?> onclick="return confirm_download()" <?php                                                              } ?>>ডাউনলোড</a>
                                 </div>
                             </div>
                         </div>
                 <?php
                     }
                 }
-                ?> -->
+                ?>
 
-                                </div>
-                            </div>
+            </div>
+        </div>
     </section>
 
     <script>

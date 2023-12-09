@@ -118,9 +118,28 @@ if (!isset($_SESSION['author_id'])) {
               <!-- User -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                  <div class="avatar avatar-online">
-                    <img src="../Images/logo.png" alt class="w-px-40 h-auto rounded-circle" />
-                  </div>
+                  <?php
+                  $select_from_new_paper = "SELECT * FROM author_information WHERE author_id ='$_SESSION[author_id]'";
+                  $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
+                  $serial_no = 1;
+                  if (mysqli_num_rows($run_select_from_new_paper) > 0) {
+                    $row = mysqli_fetch_assoc($run_select_from_new_paper);
+                    extract($row);
+                    $_SESSION['author_email'] = $author_email;
+                  ?>
+                    <div class="avatar avatar-online">
+                      <?php
+                      if ($author_role === "Teacher") {
+                      ?>
+                        <img src="../Images/author/teacher/<?php echo $image; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                      <?php
+                      } else {
+                      ?>
+                        <img src="../Images/author/student/<?php echo $image; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                      <?php
+                      }
+                      ?>
+                    </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>
@@ -128,24 +147,26 @@ if (!isset($_SESSION['author_id'])) {
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
-                            <img src="../Images/logo.png" alt class="w-px-40 h-auto rounded-circle" />
+                            <?php
+                            if ($author_role === "Teacher") {
+                            ?>
+                              <img src="../Images/author/teacher/<?php echo $image; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                            <?php
+                            } else {
+                            ?>
+                              <img src="../Images/author/student/<?php echo $image; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                            <?php
+                            }
+                            ?>
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <?php
-                          $select_from_new_paper = "SELECT * FROM author_information WHERE author_id ='$_SESSION[author_id]'";
-                          $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
-                          $serial_no = 1;
-                          if (mysqli_num_rows($run_select_from_new_paper) > 0) {
-                            $row = mysqli_fetch_assoc($run_select_from_new_paper);
-                            extract($row);
-                            $_SESSION['author_email'] = $author_email;
-                          ?>
-                            <span class="fw-semibold d-block"><?php echo $author_name ?></span>
-                          <?php
-                          }
-                          ?>
-                          <small class="text-muted"><?php if (isset($_SESSION['author_role'])) echo $_SESSION['author_role'] ?></small>
+
+                          <span class="fw-semibold d-block"><?php echo $author_name ?></span>
+                        <?php
+                      }
+                        ?>
+                        <small class="text-muted"><?php if (isset($_SESSION['author_role'])) echo $_SESSION['author_role'] ?></small>
                         </div>
                       </div>
                     </a>

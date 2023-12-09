@@ -27,22 +27,22 @@
 
                                     <h5 class="card-title primary_color" style="height: 6vh;"><?php echo $title; ?></h5>
                                     <!-- <p class="card-text"><?php echo $publisher_name; ?></p> -->
-                                    <!-- <a href="<?php if (isset($pdf_file)) { ?>./Files/syllabus/pdf_file/<?php echo $pdf_file;
-                                                                                                        } else {
-                                                                                                            ?>
-published_book.php                                                                                                                <?php
-                                                                                                                                } ?>" target="_blank" class="btn btn-primary" <?php if ($pdf_file === "") {
-                                                                                                                                                                                ?> onclick="return confirm_download()" <?php                                                              } ?>>ডাউনলোড</a>
+                                    <a href="<?php if (isset($pdf_file) && $pdf_file !== "") { ?>./Files/syllabus/pdf_file/<?php echo $pdf_file;
+                                                                                                                        } else {
+                                                                                                                            ?>
+syllabus.php                                                                                                                <?php
+                                                                                                                        } ?>" class="btn btn-primary" <?php if ($pdf_file === "") {
+                                                                                                                                                        ?> onclick="return confirm_download()" <?php                                                              } ?>>ডাউনলোড</a>
                                 </div>
                             </div>
                         </div>
                 <?php
                     }
                 }
-                ?> -->
+                ?>
 
-                                </div>
-                            </div>
+            </div>
+        </div>
     </section>
 
     <script>

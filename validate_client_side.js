@@ -3,6 +3,9 @@ const nameErr = getId('name_err');
 const emailErr = getId('email_err');
 const passwordErr = getId('password_err');
 const confirmPasswordErr = getId('confirm_password_err');
+const previousPasswordErr = getId('previous_password_err');
+const newPasswordErr = getId('new_password_err');
+const retypeNewPasswordErr = getId('retype_new_password_err');
 const contactErr = getId('contact_err');
 
 function validateName() {
@@ -96,6 +99,66 @@ function validateConfirmPassword() {
     return true;
 }
 
+
+function validatePreviousPassword() {
+    const previousPassword = getId('previous_password').value;
+    if (previousPassword.length === 0) {
+        innerHtml(previousPasswordErr, "Current Password is required");
+        previousPasswordErr.classList.add('text-danger');
+        return false;
+    }
+    if (!previousPassword.match(/(?!.*\s).{4,10}/)) {
+        innerHtml(previousPasswordErr, "Password must be 4 to 10 characters long");
+        previousPasswordErr.classList.add('text-danger');
+        return false;
+    }
+    innerHtml(passwordErr, "Valid");
+    passwordErr.classList.remove('text-danger');
+    passwordErr.classList.add('text-success');
+    return true;
+}
+
+function validateNewPassword() {
+    const newPassword = getId('new_password').value;
+    if (newPassword.length === 0) {
+        innerHtml(newPasswordErr, "New Password is required");
+        newPasswordErr.classList.add('text-danger');
+        return false;
+    }
+    if (!newPassword.match(/(?!.*\s).{4,10}/)) {
+        innerHtml(newPasswordErr, "Password must be 4 to 10 characters long");
+        newPasswordErr.classList.add('text-danger');
+        return false;
+    }
+    innerHtml(passwordErr, "Valid");
+    passwordErr.classList.remove('text-danger');
+    passwordErr.classList.add('text-success');
+    return true;
+}
+
+function validateRetypeNewPassword() {
+    const previousPassword = getId('previous_password').value;
+    const retypeNewPassword = getId('retype_new_password').value;
+    if (retypeNewPassword.length === 0) {
+        innerHtml(retypeNewPasswordErr, "Retype New Password is required");
+        retypeNewPasswordErr.classList.add('text-danger');
+        return false;
+    }
+    if (!retypeNewPassword.match(/(?!.*\s).{4,10}/)) {
+        innerHtml(retypeNewPasswordErr, "Invalid retype new password");
+        retypeNewPasswordErr.classList.add('text-danger');
+        return false;
+    }
+    if (previousPassword !== retypeNewPassword) {
+        innerHtml(retypeNewPasswordErr, "Password does not match!");
+        return false;
+    }
+    innerHtml(retypeNewPasswordErr, "Valid");
+    retypeNewPasswordErr.classList.remove('text-danger');
+    retypeNewPasswordErr.classList.add('text-success');
+    return true;
+}
+
 function validateContact() {
     const contact = getId('contact').value;
     if (contact.length === 0) {
@@ -148,6 +211,18 @@ function formData() {
 
 function loginFormData() {
     if (!validateEmail() || !validatePassword())
+        return false;
+    else return true;
+}
+
+function adminFormData() {
+    if (!validateName() || !validateEmail())
+        return false;
+    else return true;
+}
+
+function adminFormPassData() {
+    if (!validatePreviousPassword() || !validateNewPassword() || !validateRetypeNewPassword())
         return false;
     else return true;
 }

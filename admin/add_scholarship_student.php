@@ -65,7 +65,16 @@ if (isset($_POST['add_scholarship_student'])) {
                 <select name="faculty" id="faculty" class="form-control" required>
                     <option value="">অনুষদ নির্বাচন করুন</option>
                     <?php
-                    for ($i = 1; $i <= 20; $i++) {
+                    $select_from_new_paper = "SELECT DISTINCT `faculty`  FROM `faculties` ORDER BY `id`";
+                    $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
+                    $serial_no = 1;
+                    if (mysqli_num_rows($run_select_from_new_paper) > 0) {
+                        while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
+                            extract($row);
+                            $serial_no++;
+                        }
+                    }
+                    for ($i = 1; $i <= $serial_no; $i++) {
                     ?>
                         <option value="<?php echo $obj->engToBn($i) ?> টি"><?php echo $obj->engToBn($i) ?> টি</option>
                     <?php
@@ -78,7 +87,7 @@ if (isset($_POST['add_scholarship_student'])) {
                 <select name="department" id="department" class="form-control" required>
                     <option value="">বিভাগ নির্বাচন করুন</option>
                     <?php
-                    for ($i = 1; $i <= 50; $i++) {
+                    for ($i = 1; $i <= 60; $i++) {
                     ?>
                         <option value="<?php echo $obj->engToBn($i) ?> টি"><?php echo $obj->engToBn($i) ?> টি</option>
                     <?php
@@ -91,7 +100,7 @@ if (isset($_POST['add_scholarship_student'])) {
                 <select name="scholarship_student" id="scholarship_student" class="form-control" required>
                     <option value="">বৃত্তিপ্রাপ্ত শিক্ষার্থী সংখ্যা নির্বাচন করুন</option>
                     <?php
-                    for ($i = 1; $i <= 50; $i++) {
+                    for ($i = 1; $i <= 100; $i++) {
                     ?>
                         <option value="<?php echo $obj->engToBn($i) ?> জন"><?php echo $obj->engToBn($i) ?> জন</option>
                     <?php

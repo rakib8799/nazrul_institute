@@ -105,6 +105,93 @@ function validateLoginData($conn, $loginData)
     return $loginArr;
 }
 
+function validateAdminLoginData($conn, $adminLoginData)
+{
+
+    $nameErr = $emailErr = "";
+    $name = $email = "";
+    extract($adminLoginData);
+    // print_r($loginData);
+
+    if (empty($name)) {
+        $nameErr = "Name must be provided";
+    } else {
+        $name = test_input($name);
+
+        if (!preg_match("/[a-zA-Z\s]{3,25}/", $name)) {
+            $nameErr = "Invalid name";
+        }
+    }
+    if (empty($email)) {
+        $emailErr = "Email must be provided";
+    } else {
+        $email = test_input($email);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid email";
+        }
+    }
+
+
+    function escapeAdminLoginString($conn, $str)
+    {
+        return mysqli_real_escape_string($conn, $str);
+    }
+
+    $name = $nameErr ? escapeAdminLoginString($conn, $nameErr) : escapeAdminLoginString($conn, $name);
+    $email = $emailErr ? escapeAdminLoginString($conn, $emailErr) : escapeAdminLoginString($conn, $email);
+
+    $loginArr = ["name" => $name, "email" => $email];
+    return $loginArr;
+}
+
+function validateAdminLoginPassData($conn, $adminLoginPassData)
+{
+
+    $previousPasswordErr = $newPasswordErr = $retypeNewPasswordErr = "";
+    $previousPassword = $newPassword = $retypeNewPassword = "";
+    extract($adminLoginPassData);
+    // print_r($loginData);
+
+    if (empty($previous_password)) {
+        $previousPasswordErr = "Current Password must be provided";
+    } else {
+        $previousPassword = test_input($previous_password);
+        if (!preg_match("/(?!.*\s).{4,10}/", $previousPassword)) {
+            $previousPasswordErr = "Invalid password";
+        }
+    }
+    if (empty($new_password)) {
+        $newPasswordErr = "New Password must be provided";
+    } else {
+        $newPassword = test_input($new_password);
+        if (!preg_match("/(?!.*\s).{4,10}/", $newPassword)) {
+            $newPasswordErr = "Invalid password";
+        }
+    }
+    if (empty($retype_new_password)) {
+        $retypeNewPasswordErr = "Retype New Password must be provided";
+    } else {
+        $retypeNewPassword = test_input($retype_new_password);
+        if (!preg_match("/(?!.*\s).{4,10}/", $retypeNewPassword)) {
+            $retypeNewPasswordErr = "Invalid password";
+        }
+    }
+
+
+    function escapeAdminLoginPassString($conn, $str)
+    {
+        return mysqli_real_escape_string($conn, $str);
+    }
+
+    $previousPassword = $previousPasswordErr ? escapeAdminLoginPassString($conn, $previousPasswordErr) : escapeAdminLoginPassString($conn, $previousPassword);
+    $newPassword = $newPasswordErr ? escapeAdminLoginPassString($conn, $newPasswordErr) : escapeAdminLoginPassString($conn, $newPassword);
+    $retypeNewPassword = $retypeNewPasswordErr ? escapeAdminLoginPassString($conn, $retypeNewPasswordErr) : escapeAdminLoginPassString($conn, $retypeNewPassword);
+
+
+    $loginArr = ["previous_password" => $previousPassword, "new_password" => $newPassword, "retype_new_password" => $retypeNewPassword];
+    return $loginArr;
+}
+
 function test_input($data)
 {
     $data = trim($data);
