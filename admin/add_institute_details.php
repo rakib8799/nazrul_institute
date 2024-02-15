@@ -4,7 +4,10 @@
 if (isset($_POST['add_institute'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `institute_details`(`name`,`founding_period`,`aim`,`target`) VALUES('$name','$long_desc1','$long_desc2','$long_desc3')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `institute_details`(`name`,`founding_period`,`aim`,`target,`created_at`) VALUES('$name','$long_desc1','$long_desc2','$long_desc3','$current_time')";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_institute_details.php");

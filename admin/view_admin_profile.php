@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <h3 class="text-center text-secondary fw-bold">আপনার প্রোফাইলের তথ্য</h3>
@@ -15,7 +14,6 @@ $obj = new BanglaNumberToWord();
                             <th class="text-center">ক্র.ন.</th>
                             <th class="text-center">নাম</th>
                             <th class="text-center">ইমেইল</th>
-                            <!-- <th class="text-center">মোবাইল/টেলিফোন</th> -->
                             <th class="text-center" style="width: 5vw">সংশোধন</th>
                         </tr>
                     </thead>
@@ -32,7 +30,6 @@ $obj = new BanglaNumberToWord();
                                     <td><?php echo $obj->engToBn($serial_no) ?></td>
                                     <td><?php echo $admin_name ?></td>
                                     <td><?php echo $admin_email ?></td>
-                                    <!-- <td><?php echo $admin_contact_no ?></td> -->
                                     <td>
                                         <a href="edit_admin_profile.php?profile_id=<?php echo $admin_id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="delete_admin.php?id=<?php echo $admin_id ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>

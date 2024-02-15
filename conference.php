@@ -10,37 +10,52 @@
             <h2 class="text-uppercase fw-bold text-center mb-3 secondaryColor" data-aos="fade-up">
                 আমাদের কনফারেন্স
             </h2>
-            <div class="row g-4">
-                <div class="col">
-                    <div class="row">
-                        <?php
-                        $select_from_new_paper = "SELECT * FROM `conference` ORDER BY id DESC";
-                        $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
-                        if (mysqli_num_rows($run_select_from_new_paper) > 0) {
-                            while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
-                                extract($row);
-                        ?>
-                                <div class="card mb-3 p-3 shadow">
-                                    <div class="card-body d-flex align-items-center" style="height: 50vh;">
-                                        <div class="col-md-3">
-                                            <img src="Images/conference/<?php echo $image ?>" alt="vc_img" class="card-img-top img-fluid" style="height: 40vh;">
-                                        </div>
-                                        <div class="col-md-9 ps-5">
-                                            <p class="card-title fw-bold fs-5 text-center"><?php echo $title ?></p>
-                                            <p class="card-text text-justify"><?php echo $details ?></p>
-                                        </div>
-                                    </div>
+            <div class="row d-flex justify-content-center text-center g-4" data-aos="fade-up-right">
+                <?php
+                $select_from_new_paper = "SELECT * FROM `conference` ORDER BY id DESC";
+                $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
+                if (mysqli_num_rows($run_select_from_new_paper) > 0) {
+                    while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
+                        extract($row);
+                ?>
+                        <div class="card rounded col-md-4 mb-3 p-3 shadow" style="min-height: 10vh;">
+                            <!-- <div class="">
+                                <img src="Images/conference/<?php echo $image ?>" alt="vc_img" class="card-img-top img-fluid" style="height: 40vh;">
+                            </div> -->
+                            <div class="card-body">
+                                <p class="card-title fw-bold fs-5 text-center"><?php echo $title ?></p>
+                                <p class="card-text text-justify"><?php if (strlen($details) < 200) {
+                                                                        echo $details;
+                                                                    } else {
+                                                                        echo (mb_substr($details, 0, 199) . "...");
+                                                                    } ?></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="conference_details.php?conference_id=<?php echo $id ?>" class="text-decoration-none">বিস্তারিত পড়ুন</a>
+                                    <a href="<?php if (isset($pdf_file) && $pdf_file !== "") { ?>./Files/conference/pdf_file/<?php echo $pdf_file;
+                                                                                                                            } else {
+                                                                                                                                ?>
+conference.php                                                                                                                <?php
+                                                                                                                            } ?>" class="btn btn-primary" <?php if ($pdf_file === "") {
+                                                                                                                                                            ?> onclick="return confirm_download()" <?php                                                              } ?>>ডাউনলোড</a>
                                 </div>
-                        <?php
-                            }
-                        }
-                        ?>
-                    </div>
-
-                </div>
+                            </div>
+                        </div>
+                <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </section>
+
+    <script>
+        function confirm_download() {
+            // alert(" ফাইল এখনো আপলোড করা হয়নি");
+            // window.location.reload();
+            if (confirm("ফাইল এখনো আপলোড করা হয়নি")) window.location.reload();
+            else window.location.reload();
+        }
+    </script>
 
 
     <footer data-aos="fade-up">

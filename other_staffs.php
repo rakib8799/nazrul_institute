@@ -21,7 +21,7 @@
                         <div class="col-md-3">
 
                             <div class="card rounded shadow" style="height: 45vh;">
-                                <img src="Images/staff/<?php echo $image ?>" alt="vc_img" class="card-img-top" style="height: 30vh;">
+                                <img src="Images/staff/<?php echo $image ?>" alt="vc_img" class="card-img-top" style="height: 35vh;">
 
                                 <div class="card-body">
 

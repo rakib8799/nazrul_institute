@@ -192,6 +192,47 @@ function validateAdminLoginPassData($conn, $adminLoginPassData)
     return $loginArr;
 }
 
+
+function validateBanglaData($conn, $banglaData)
+{
+
+    $banglaWordsErr = $englishWordsErr = "";
+    $banglaWords = $englishWords = "";
+    extract($banglaData);
+    $patternBangla = '/^[\p{Bengali}]{0,100}$/u'; //right
+    $patternEng = '/^[a-z0-9 .}, !@#$%^&*()_+|\';?><-]{{0,100}}+$/i';
+    // print_r($banglaData);
+
+    if (empty($banglaWords)) {
+        $banglaWordsErr = "banglaWords must be provided";
+    } else {
+        $banglaWords = test_input($banglaWords);
+        if (!preg_match($patternBangla, $banglaWords)) {
+            $banglaWordsErr = "Invalid banglaWords";
+        }
+    }
+    if (empty($englishWords)) {
+        $englishWordsErr = "englishWords must be provided";
+    } else {
+        $englishWords = test_input($englishWords);
+        if (!preg_match($patternEng, $englishWords)) {
+            $englishWordsErr = "Invalid englishWords";
+        }
+    }
+
+    function escapeBanglaString($conn, $str)
+    {
+        return mysqli_real_escape_string($conn, $str);
+    }
+
+    $banglaWords = $banglaWordsErr ? escapeBanglaString($conn, $banglaWordsErr) : escapeBanglaString($conn, $banglaWords);
+    $englishWords = $englishWordsErr ? escapeBanglaString($conn, $englishWordsErr) : escapeBanglaString($conn, $englishWords);
+
+    $banglaArr = ["banglaWords" => $banglaWords, "englishWords" => $englishWords];
+    return $banglaArr;
+}
+
+
 function test_input($data)
 {
     $data = trim($data);

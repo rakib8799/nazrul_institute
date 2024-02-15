@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <a href="add_art_camp.php" class="btn btn-primary mb-5">আর্ট ক্যাম্প সম্পর্কে তথ্য সংযুক্তি</a>
@@ -16,6 +15,7 @@ $obj = new BanglaNumberToWord();
                             <th class="text-center">ক্র.ন.</th>
                             <th class="text-center">শিরোনাম</th>
                             <th class="text-center">বিস্তারিত</th>
+                            <th class="text-center" style="width: 15vw">ছবি</th>
                             <th class="text-center" style="width: 5vw">সংশোধন</th>
                         </tr>
                     </thead>
@@ -25,13 +25,31 @@ $obj = new BanglaNumberToWord();
                         $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                         $serial_no = 1;
                         if (mysqli_num_rows($run_select_from_new_paper) > 0) {
+                            $imgIndex = 0;
                             while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
                                 extract($row);
+                                $images = explode(",", $image);
                         ?>
                                 <tr>
                                     <td><?php echo $obj->engToBn($serial_no) ?></td>
                                     <td><?php echo $title; ?></td>
                                     <td><?php echo $details; ?></td>
+                                    <td>
+                                        <?php
+                                        if (count($images) > 1) {
+                                            while ($imgIndex < count($images)) {
+                                        ?>
+                                                <img src="../Images/art_camp/<?php echo $images[$imgIndex] ?>" width='50px' height='50px'>
+                                            <?php
+                                                $imgIndex++;
+                                            }
+                                        } else {
+                                            ?>
+                                            <img src="../Images/art_camp/<?php echo $image ?>" width='50px' height='50px'>
+                                        <?php
+                                        }
+                                        ?>
+                                    </td>
                                     <td>
                                         <a href="edit_art_camp.php?art_camp_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="delete_art_camp.php?id=<?php echo $id ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>

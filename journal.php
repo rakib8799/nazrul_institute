@@ -21,14 +21,14 @@
                     while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
                         extract($row);
                 ?>
-                        <div class="col-md-3">
+                        <div class="col-md-4" style="min-height: 45vh;">
 
-                            <div class="card rounded shadow" style="min-height: 30vh;">
+                            <div class="card rounded shadow" style="min-height: 45vh;">
                                 <img src="Images/journal/<?php echo $image ?>" alt="vc_img" class="card-img-top" style="height: 30vh;">
 
-                                <div class="card-body">
+                                <div class="card-body" style="min-height: 15vh;">
 
-                                    <h5 class="card-title primary_color" style="min-height: 8vh;"><?php echo $title; ?></h5>
+                                    <h5 class="card-title fw-bold fs-5 text-center"><?php echo $title; ?></h5>
                                     <!-- <p class="card-text"><?php echo $screenplay_name; ?></p> -->
                                     <a href="./Files/journal/pdf_file/<?php echo $pdf_file ?>" class="btn btn-primary">ডাউনলোড</a>
                                 </div>

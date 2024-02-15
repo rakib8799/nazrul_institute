@@ -1,9 +1,13 @@
 <?php include("admin_header.php") ?>
+
 <?php
 if (isset($_POST['add_designation'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `designations`(`designation`) VALUES('$designation')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `designations`(`designation`,`created_at`) VALUES('$designation','$current_time')";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_designations.php");
@@ -22,10 +26,6 @@ if (isset($_POST['add_designation'])) {
                 <label for="designation">পদবি</label>
                 <input type="text" name="designation" id="designation" class="form-control" placeholder="পদবির নাম লিখুন" required>
             </div>
-            <!-- <div class="mt-3">
-                <label for="session">শিক্ষাবর্ষ</label>
-                <input type="text" name="session" id="session" class="form-control" placeholder="শিক্ষাবর্ষ লিখুন" required>
-            </div> -->
             <div class="mt-3">
                 <input type="submit" name="add_designation" value="Add" class="btn btn-primary">
             </div>

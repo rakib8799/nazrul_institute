@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <h3 class="text-center text-secondary fw-bold">গবেষকদের তথ্যাবলী</h3>

@@ -1,9 +1,13 @@
 <?php include("admin_header.php") ?>
+
 <?php
 if (isset($_POST['add_fiscal_year'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `fiscal_years`(`fiscal_year`) VALUES('$fiscal_year')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `fiscal_years`(`fiscal_year`,`created_at`) VALUES('$fiscal_year','$current_time')";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_fiscal_years.php");
@@ -22,10 +26,6 @@ if (isset($_POST['add_fiscal_year'])) {
                 <label for="fiscal_year">অর্থবছর</label>
                 <input type="text" name="fiscal_year" id="fiscal_year" class="form-control" placeholder="অর্থবছর লিখুন" required>
             </div>
-            <!-- <div class="mt-3">
-                <label for="session_year">শিক্ষাবর্ষ</label>
-                <input type="text" name="session_year" id="session_year" class="form-control" placeholder="শিক্ষাবর্ষ লিখুন" required>
-            </div> -->
             <div class="mt-3">
                 <input type="submit" name="add_fiscal_year" value="Add" class="btn btn-primary">
             </div>

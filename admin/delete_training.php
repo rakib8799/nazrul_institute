@@ -1,11 +1,14 @@
 <?php include("admin_header.php") ?>
+
 <?php
-if (isset($_GET['id'])) {
+if (isset($_GET['id'], $_GET['image'])) {
     $id = $_GET['id'];
+    $image = $_GET['image'];
     $deleteData = "DELETE FROM training WHERE id = $id";
     $result = mysqli_query($conn, $deleteData);
     if ($result) {
-        // echo "<p class='text-danger text-bold text-center fs-5 mt-3'>Deleted successfully</p>";
+        unlink('../Images/training/' . $image);
+
         header("Location: view_training.php");
         ob_end_flush();
     } else {
@@ -13,4 +16,5 @@ if (isset($_GET['id'])) {
     }
 }
 ?>
+
 <?php include("admin_footer.php") ?>

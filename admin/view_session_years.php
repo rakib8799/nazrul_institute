@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <a href="add_session_year.php" class="btn btn-primary mb-5">গুরুত্বপূর্ণ শিক্ষাবর্ষগুলোর তথ্য সংযুক্তি</a>
@@ -14,7 +13,6 @@ $obj = new BanglaNumberToWord();
                     <thead>
                         <tr>
                             <th class="text-center">ক্র.ন.</th>
-                            <!-- <th>অর্থবছর</th> -->
                             <th class="text-center">শিক্ষাবর্ষ</th>
                             <th class="text-center" style="width: 5vw">সংশোধন</th>
                         </tr>
@@ -31,7 +29,6 @@ $obj = new BanglaNumberToWord();
                                 <tr>
                                     <td><?php echo $obj->engToBn($serial_no) ?></td>
                                     <td><?php echo $session_year ?></td>
-                                    <!-- <td><?php echo $session_year ?></td> -->
                                     <td>
                                         <a href="edit_session_year.php?session_year_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="delete_session_year.php?id=<?php echo $id ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>

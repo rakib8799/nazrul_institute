@@ -34,11 +34,6 @@ if (isset($_GET['fiscal_year_id'])) {
                         <label for="fiscal_year">অর্থবছর</label>
                         <input type="text" name="fiscal_year" id="fiscal_year" class="form-control" placeholder="অর্থবছর লিখুন" value="<?php echo $fiscal_year ?>" required>
                     </div>
-                    <!-- <div class="mt-3">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                        <label for="session_year">শিক্ষাবর্ষ</label>
-                        <input type="text" name="session_year" id="session_year" class="form-control" placeholder="শিক্ষাবর্ষ লিখুন" value="<?php echo $session_year ?>" required>
-                    </div> -->
                     <div class="mt-3">
                         <input type="submit" name="edit_fiscal_year" value="Update" class="btn btn-primary">
                     </div>

@@ -2,27 +2,110 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 
 <?php
-if (isset($_POST['edit_scholarship_student'])) {
+if (isset($_POST['edit_scholarship_students'])) {
     extract($_POST);
 
-    $update_sql = "UPDATE `scholarship_students` SET `fiscal_year`='$fiscal_year',`session_year`='$session_year',`faculty`='$faculty',`department`='$department',`scholarship_student`='$scholarship_student' WHERE id='$scholarship_student_id'";
-    $run_insert_qry = mysqli_query($conn, $update_sql);
-    if ($run_insert_qry) {
-        header("location: view_scholarship_student.php");
-        ob_end_flush();
+    if (!empty($_FILES['image']['name']) && empty($_FILES['pdf_file']['name'])) {
+        $scholarship_students_image_name = $_FILES['image']['name'];
+        $scholarship_students_image_tmp_name = $_FILES['image']['tmp_name'];
+        $path_info = strtolower(pathinfo($scholarship_students_image_name, PATHINFO_EXTENSION));
+        $scholarship_students_image_name = uniqid() . ".$path_info";
+
+        $arr = array("jpg", "png", "jpeg");
+
+        if (!in_array($path_info, $arr)) {
+            echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
+        } else {
+            unlink('../Images/scholarship_students/' . $current_image);
+
+            $update_sql = "UPDATE `scholarship_students` SET `fiscal_year`='$fiscal_year',`session_year`='$session_year',`faculty`='$faculty',`department`='$department',`scholarship_student`='$scholarship_student', `image`='$scholarship_students_image_name' WHERE id='$scholarship_students_id'";
+            $run_insert_qry = mysqli_query($conn, $update_sql);
+            if ($run_insert_qry) {
+                move_uploaded_file($scholarship_students_image_tmp_name, '../Images/scholarship_students/' . $scholarship_students_image_name);
+
+                header("location: view_scholarship_student.php");
+                ob_end_flush();
+            } else {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+            }
+        }
     } else {
-        echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+        if (!empty($_FILES['pdf_file']['name']) && empty($_FILES['image']['name'])) {
+            $pdf_file_name = $_FILES['pdf_file']['name'];
+            $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
+            $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
+            $pdf_file_name = uniqid() . ".$path_info3";
+
+            $arr3 = array("pdf");
+
+            if (!in_array($path_info3, $arr3)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
+            } else {
+                unlink('../Files/scholarship_students/pdf_file/' . $current_pdf_file);
+
+                $update_sql = "UPDATE `scholarship_students` SET `fiscal_year`='$fiscal_year',`session_year`='$session_year',`faculty`='$faculty',`department`='$department',`scholarship_student`='$scholarship_student', `pdf_file`='$pdf_file_name' WHERE id='$scholarship_students_id'";
+                $run_insert_qry = mysqli_query($conn, $update_sql);
+                if ($run_insert_qry) {
+                    move_uploaded_file($pdf_file_tmp_name, '../Files/scholarship_students/pdf_file/' . $pdf_file_name);
+                    header("location: view_scholarship_student.php");
+                    ob_end_flush();
+                } else {
+                    echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+                }
+            }
+        } else if (!empty($_FILES['image']['name'] && $_FILES['pdf_file']['name'])) {
+            $scholarship_students_image_name = $_FILES['image']['name'];
+            $scholarship_students_image_tmp_name = $_FILES['image']['tmp_name'];
+            $path_info = strtolower(pathinfo($scholarship_students_image_name, PATHINFO_EXTENSION));
+            $scholarship_students_image_name = uniqid() . ".$path_info";
+
+            $arr = array("jpg", "png", "jpeg");;
+            $pdf_file_name = $_FILES['pdf_file']['name'];
+            $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];;
+            $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
+            $pdf_file_name = uniqid() . ".$path_info3";
+
+            $arr3 = array("pdf");
+
+            if (!in_array($path_info, $arr)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
+            } else if (!in_array($path_info3, $arr3)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
+            } else {
+                unlink('../Images/scholarship_students/' . $current_image);
+                unlink('../Files/scholarship_students/pdf_file/' . $current_pdf_file);
+
+                $update_sql = "UPDATE `scholarship_students` SET `fiscal_year`='$fiscal_year',`session_year`='$session_year',`faculty`='$faculty',`department`='$department',`scholarship_student`='$scholarship_student', `image`='$scholarship_students_image_name', `pdf_file`='$pdf_file_name' WHERE id='$scholarship_students_id'";
+                $run_insert_qry = mysqli_query($conn, $update_sql);
+                if ($run_insert_qry) {
+                    move_uploaded_file($scholarship_students_image_tmp_name, '../Images/scholarship_students/' . $scholarship_students_image_name);
+                    move_uploaded_file($pdf_file_tmp_name, '../Files/scholarship_students/pdf_file/' . $pdf_file_name);
+                    header("location: view_scholarship_student.php");
+                    ob_end_flush();
+                } else {
+                    echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+                }
+            }
+        } else {
+            $update_sql = "UPDATE `scholarship_students` SET `fiscal_year`='$fiscal_year',`session_year`='$session_year',`faculty`='$faculty',`department`='$department',`scholarship_student`='$scholarship_student' WHERE id='$scholarship_students_id'";
+            $run_insert_qry = mysqli_query($conn, $update_sql);
+            if ($run_insert_qry) {
+                header("location: view_scholarship_student.php");
+                ob_end_flush();
+            } else {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+            }
+        }
     }
 }
 ?>
 
 <?php
-if (isset($_GET['scholarship_student_id'])) {
-    $id = $_GET['scholarship_student_id'];
+if (isset($_GET['scholarship_students_id'])) {
+    $id = $_GET['scholarship_students_id'];
 
     $select_from_new_paper = "SELECT * FROM scholarship_students WHERE id=$id";
     $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
@@ -35,8 +118,8 @@ if (isset($_GET['scholarship_student_id'])) {
         <div class="container-fluid  mt-5 d-flex justify-content-center">
             <div class="col-md-8 col-12">
                 <h2 class="text-capitalize text-center">বৃত্তিপ্রাপ্ত শিক্ষার্থীদের সম্পর্কে তথ্য সংশোধন</h2>
-                <form action="" method="post">
-                    <input type="hidden" name="scholarship_student_id" value="<?php echo $id ?>">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="scholarship_students_id" value="<?php echo $id ?>">
                     <div class="mt-3">
                         <label for="fiscal_year">অর্থবছর</label>
                         <select name="fiscal_year" id="fiscal_year" class="form-select" required>
@@ -128,7 +211,25 @@ if (isset($_GET['scholarship_student_id'])) {
                         </select>
                     </div>
                     <div class="mt-3">
-                        <input type="submit" name="edit_scholarship_student" value="Update" class="btn btn-primary">
+                        <label>পূর্ববর্তী ছবি</label><br>
+                        <img src="../Images/scholarship_students/<?php echo $image ?>" width="100px" alt="scholarship_students_image">
+                        <input type="hidden" name="current_image" value="<?php echo $image; ?>" />
+                    </div>
+                    <div class="mt-3">
+                        <label for="image">নতুন ছবি সংযুক্তি</label>
+                        <input type="file" name="image" id="image" class="form-control">
+                    </div>
+                    <div class="mt-3">
+                        <label>পূর্ববর্তী পিডিএফ ফাইল</label><br>
+                        <a href="../Files/scholarship_students/pdf_file/<?php echo $pdf_file ?>"><?php echo $pdf_file ?></a>
+                        <input type="hidden" name="current_pdf_file" value="<?php echo $pdf_file; ?>" />
+                    </div>
+                    <div class="mt-3">
+                        <label for="pdf_file">নতুন পিডিএফ ফাইল সংযুক্তি</label>
+                        <input type="file" name="pdf_file" id="pdf_file" class="form-control">
+                    </div>
+                    <div class="mt-3">
+                        <input type="submit" name="edit_scholarship_students" value="Update" class="btn btn-primary">
                     </div>
                 </form>
             </div>

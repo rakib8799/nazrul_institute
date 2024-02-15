@@ -1,5 +1,4 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['edit_album'])) {
@@ -8,12 +7,8 @@ if (isset($_POST['edit_album'])) {
     if (!empty($_FILES['image']['name'])) {
         $album_image_name = $_FILES['image']['name'];
         $album_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($album_image_name, PATHINFO_EXTENSION));
-
         $album_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/album/' . $album_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
 
@@ -22,11 +17,10 @@ if (isset($_POST['edit_album'])) {
         } else {
             unlink('../Images/album/' . $current_image);
 
-            $update_sql = "UPDATE `album` SET `title`='$long_desc1',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name',`image`='$album_image_name' WHERE id='$album_id'";
+            $update_sql = "UPDATE `album` SET `title`='$title',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name',`image`='$album_image_name' WHERE id='$album_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($album_image_tmp_name, '../Images/album/' . $album_image_name);
-                // $compressedImage = compressImage($album_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_album.php");
                 ob_end_flush();
@@ -36,30 +30,19 @@ if (isset($_POST['edit_album'])) {
         }
     } else {
         if (!empty($_FILES['pdf_file']['name'])) {
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
             if (!in_array($path_info3, $arr3)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
-            }
-            // else if (!in_array($path_info4, $arr4)) {
-            //     echo "<p class='text-danger text-bold text-center fs-5 mt-3'>File must be in doc or docx format</p>";
-            // }
-            else {
-                // unlink('../Files/album/doc_file/' . $current_doc_file);
+            } else {
                 unlink('../Files/album/pdf_file/' . $current_pdf_file);
-                $update_sql = "UPDATE `album` SET `title`='$long_desc1',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name',`pdf_file`='$pdf_file_name' WHERE id='$album_id'";
+                $update_sql = "UPDATE `album` SET `title`='$title',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name',`pdf_file`='$pdf_file_name' WHERE id='$album_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
-                    // move_uploaded_file($doc_file_tmp_name, '../Files/album/doc_file/' . $doc_file_name);
                     move_uploaded_file($pdf_file_tmp_name, '../Files/album/pdf_file/' . $pdf_file_name);
                     header("location: view_album.php");
                     ob_end_flush();
@@ -70,26 +53,18 @@ if (isset($_POST['edit_album'])) {
         } else if (!empty($_FILES['image']['name'] && $_FILES['pdf_file']['name'])) {
             $album_image_name = $_FILES['image']['name'];
             $album_image_tmp_name = $_FILES['image']['tmp_name'];
-
             $path_info = strtolower(pathinfo($album_image_name, PATHINFO_EXTENSION));
-
             $album_image_name = uniqid() . ".$path_info";
-            // $imageUploadPath = '../Images/album/' . $album_image_name;
-
 
             $arr = array("jpg", "png", "jpeg");
 
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
+
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
 
             if (!in_array($path_info, $arr)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
@@ -98,12 +73,10 @@ if (isset($_POST['edit_album'])) {
             } else {
                 unlink('../Images/album/' . $current_image);
                 unlink('../Files/album/pdf_file/' . $current_pdf_file);
-                $update_sql = "UPDATE `album` SET `title`='$long_desc1',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name',`image`='$album_image_name',`pdf_file`='$pdf_file_name' WHERE id='$album_id'";
+                $update_sql = "UPDATE `album` SET `title`='$title',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name',`image`='$album_image_name',`pdf_file`='$pdf_file_name' WHERE id='$album_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
                     move_uploaded_file($album_image_tmp_name, '../Images/album/' . $album_image_name);
-                    // $compressedImage = compressImage($album_image_tmp_name, $imageUploadPath, 75);
-
                     move_uploaded_file($pdf_file_tmp_name, '../Files/album/pdf_file/' . $pdf_file_name);
                     header("location: view_album.php");
                     ob_end_flush();
@@ -112,7 +85,7 @@ if (isset($_POST['edit_album'])) {
                 }
             }
         } else {
-            $update_sql = "UPDATE `album` SET `title`='$long_desc1',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name' WHERE id='$album_id'";
+            $update_sql = "UPDATE `album` SET `title`='$title',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name' WHERE id='$album_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 header("location: view_album.php");
@@ -123,53 +96,6 @@ if (isset($_POST['edit_album'])) {
         }
     }
 }
-
-
-
-
-// if (isset($_POST['edit_album'])) {
-//     extract($_POST);
-
-//     if (!empty($_FILES['image']['name'])) {
-//         $album_image_name = $_FILES['image']['name'];
-//         $album_image_tmp_name = $_FILES['image']['tmp_name'];
-
-//         $path_info = strtolower(pathinfo($album_image_name, PATHINFO_EXTENSION));
-
-//         $album_image_name = uniqid() . ".$path_info";
-//         // $imageUploadPath = '../Images/album/' . $album_image_name;
-
-
-//         $arr = array("jpg", "png", "jpeg");
-
-//         if (!in_array($path_info, $arr)) {
-//             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
-//         } else {
-//             unlink('../Images/album/' . $current_image);
-
-//             $update_sql = "UPDATE `album` SET `title`='$long_desc1',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name',`image`='$album_image_name' WHERE id='$album_id'";
-//             $run_insert_qry = mysqli_query($conn, $update_sql);
-//             if ($run_insert_qry) {
-//                 move_uploaded_file($album_image_tmp_name, '../Images/album/' . $album_image_name);
-//                 // $compressedImage = compressImage($album_image_tmp_name, $imageUploadPath, 75);
-
-//                 header("location: view_album.php");
-//                 ob_end_flush();
-//             } else {
-//                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>No data is updated</p>";
-//             }
-//         }
-//     } else {
-//         $update_sql = "UPDATE `album` SET `title`='$long_desc1',`advisor_name`='$advisor_name',`publisher_name`='$publisher_name' WHERE id='$album_id'";
-//         $run_insert_qry = mysqli_query($conn, $update_sql);
-//         if ($run_insert_qry) {
-//             header("location: view_album.php");
-//             ob_end_flush();
-//         } else {
-//             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>No data is updated</p>";
-//         }
-//     }
-// }
 ?>
 
 <?php
@@ -188,8 +114,8 @@ if (isset($_GET['album_id'])) {
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="album_id" value="<?php echo $id; ?>" />
                     <div class="mt-3">
-                        <label for="long_desc1">শিরোনাম</label>
-                        <textarea name="long_desc1" class="long_desc" id="long_desc1"><?php echo $title; ?></textarea>
+                        <label for="title">শিরোনাম</label>
+                        <input type="text" class="form-control" name="title" id="title" value="<?php echo $title; ?>" placeholder="শিরোনাম লিখুন">
                     </div>
                     <div class="mt-3">
                         <label for="advisor_name">উপদেষ্টা</label>
@@ -211,7 +137,7 @@ if (isset($_GET['album_id'])) {
                     </div>
                     <div class="mt-3">
                         <label>পূর্ববর্তী পিডিএফ ফাইল</label><br>
-                        <a href="../Files/journal/pdf_file/<?php echo $pdf_file ?>"><?php echo $pdf_file ?></a>
+                        <a href="../Files/album/pdf_file/<?php echo $pdf_file ?>"><?php echo $pdf_file ?></a>
                         <input type="hidden" name="current_pdf_file" value="<?php echo $pdf_file; ?>" />
                     </div>
                     <div class="mt-3">

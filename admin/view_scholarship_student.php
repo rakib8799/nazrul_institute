@@ -3,7 +3,6 @@
 
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <a href="add_scholarship_student.php" class="btn btn-primary mb-5">বৃত্তিপ্রাপ্ত শিক্ষার্থীদের সম্পর্কে তথ্য সংযুক্তি</a>
@@ -20,6 +19,8 @@ $obj = new BanglaNumberToWord();
                             <th class="text-center">অনুষদ</th>
                             <th class="text-center">বিভাগ</th>
                             <th class="text-center">বৃত্তিপ্রাপ্ত শিক্ষার্থী সংখ্যা</th>
+                            <th class="text-center">ছবি</th>
+                            <th class="text-center">পিডিএফ ফাইল</th>
                             <th class="text-center" style="width: 5vw">সংশোধন</th>
                         </tr>
                     </thead>
@@ -39,9 +40,13 @@ $obj = new BanglaNumberToWord();
                                     <td><?php echo $faculty ?></td>
                                     <td><?php echo $department ?></td>
                                     <td><?php echo $scholarship_student ?></td>
+                                    <td><img src="../Images/scholarship_students/<?php echo $image ?>" width='50px' height='50px'></td>
                                     <td>
-                                        <a href="edit_scholarship_student.php?scholarship_student_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="delete_scholarship_student.php?id=<?php echo $id ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>
+                                        <a href="../Files/scholarship_students/pdf_file/<?php echo $pdf_file ?>"><?php echo $pdf_file ?></a>
+                                    </td>
+                                    <td>
+                                        <a href="edit_scholarship_student.php?scholarship_students_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="delete_scholarship_student.php?id=<?php echo $id ?>&&image=<?php echo $image; ?>&&pdf_file=<?php echo $pdf_file; ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>
                                     </td>
                                 </tr>
                         <?php

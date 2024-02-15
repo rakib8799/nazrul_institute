@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <a href="add_institute_details.php" class="btn btn-primary mb-5">ইন্সটিটিউটের বৃত্তান্ত সংযুক্তি</a>
@@ -18,7 +17,6 @@ $obj = new BanglaNumberToWord();
                             <th class="text-center">প্রতিষ্ঠাকাল</th>
                             <th class="text-center">লক্ষ্য</th>
                             <th class="text-center">উদ্দেশ্য</th>
-                            <!-- <th>Date</th> -->
                             <th class="text-center" style="width: 5vw">সংশোধন</th>
                         </tr>
                     </thead>
@@ -37,7 +35,6 @@ $obj = new BanglaNumberToWord();
                                     <td><?php echo $founding_period; ?></td>
                                     <td><?php echo $aim; ?></td>
                                     <td><?php echo $target; ?></td>
-                                    <!-- <td><?php echo $created_at; ?></td> -->
                                     <td>
                                         <a href="edit_institute_details.php?institute_details_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="delete_institute_details.php?id=<?php echo $id ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>

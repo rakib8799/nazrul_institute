@@ -1,4 +1,5 @@
 <?php include("admin_header.php") ?>
+
 <?php
 if (isset($_GET['id'], $_GET['image'], $_GET['pdf_file'])) {
     $id = $_GET['id'];
@@ -8,7 +9,6 @@ if (isset($_GET['id'], $_GET['image'], $_GET['pdf_file'])) {
     $deleteData = "DELETE FROM journal WHERE id = $id";
     $result = mysqli_query($conn, $deleteData);
     if ($result) {
-        // echo "<p class='text-danger text-bold text-center fs-5 mt-3'>Deleted successfully</p>";
         unlink('../Images/journal/' . $image);
         unlink('../Files/journal/pdf_file/' . $pdf_file);
 
@@ -19,4 +19,5 @@ if (isset($_GET['id'], $_GET['image'], $_GET['pdf_file'])) {
     }
 }
 ?>
+
 <?php include("admin_footer.php") ?>

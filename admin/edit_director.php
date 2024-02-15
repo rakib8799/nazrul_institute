@@ -1,5 +1,4 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['edit_director'])) {
@@ -8,12 +7,8 @@ if (isset($_POST['edit_director'])) {
     if (!empty($_FILES['image']['name'])) {
         $director_image_name = $_FILES['image']['name'];
         $director_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($director_image_name, PATHINFO_EXTENSION));
-
         $director_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/director/' . $director_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
         if (!in_array($path_info, $arr)) {
@@ -24,7 +19,6 @@ if (isset($_POST['edit_director'])) {
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($director_image_tmp_name, '../Images/director/' . $director_image_name);
-                // $compressedImage = compressImage($director_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_directors.php");
                 ob_end_flush();
@@ -85,13 +79,6 @@ if (isset($_GET['director_id'])) {
                             ?>
                         </select>
                     </div>
-                    <!-- <div class="mt-3">
-                        <label for="designation">পদবি</label>
-                        <select name="designation" id="designation" class="form-control">
-                            <option value="">পদবি নির্বাচন করুন</option>
-                            <option value="পরিচালক (দায়িত্বপ্রাপ্ত)" <?php if (isset($designation) && $designation == "পরিচালক (দায়িত্বপ্রাপ্ত)") echo "selected" ?>><?php echo $designation; ?></option>
-                        </select>
-                    </div> -->
                     <div class="mt-3">
                         <label for="duration">মেয়াদকাল</label>
                         <input type="text" name="duration" id="duration" class="form-control" placeholder="পরিচালকের মেয়াদকাল লিখুন" value="<?php echo $duration; ?>">

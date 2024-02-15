@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <a href="add_journal.php" class="btn btn-primary mb-5">জার্নাল সম্পর্কে তথ্য সংযুক্তি</a>
@@ -34,7 +33,6 @@ $obj = new BanglaNumberToWord();
                                     <td><?php echo $title; ?></td>
                                     <td><img src="../Images/journal/<?php echo $image ?>" width='50px' height='50px'></td>
                                     <td>
-                                        <!-- <a href="../Files/journal/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
                                         <a href="../Files/journal/pdf_file/<?php echo $pdf_file ?>"><?php echo $pdf_file ?></a>
                                     </td>
                                     <td>

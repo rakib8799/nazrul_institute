@@ -8,7 +8,6 @@ if (isset($_POST['login'])) {
     $loginArr = validateLoginData($conn, $data);
     extract($loginArr);
 
-    // check if credentials are okay, and email is verified
     $sql = "SELECT * FROM admin_information WHERE admin_email='$email'";
     $result = mysqli_query($conn, $sql);
 
@@ -22,9 +21,7 @@ if (isset($_POST['login'])) {
 
             if (mysqli_num_rows($result_pass) > 0) {
                 $_SESSION['admin_id'] = $admin_id;
-                // $_SESSION['admin_name'] = $admin_name;
-                // $_SESSION['admin_email'] = $admin_email;
-                // $_SESSION['last_timestamp'] = time();
+
                 header("Location: index.php");
                 ob_end_flush();
             } else {

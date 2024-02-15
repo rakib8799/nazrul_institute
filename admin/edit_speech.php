@@ -1,30 +1,26 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['edit_speech'])) {
     extract($_POST);
 
-    if (!empty($_FILES['image']['name'])) {
+    if (!empty($_FILES['image']['name']) && empty($_FILES['pdf_file']['name'])) {
         $speech_image_name = $_FILES['image']['name'];
         $speech_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($speech_image_name, PATHINFO_EXTENSION));
-
         $speech_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/speech/' . $speech_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
+
         if (!in_array($path_info, $arr)) {
             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
         } else {
             unlink('../Images/speech/' . $current_image);
-            $update_sql = "UPDATE `speech` SET `speech_name`='$speech_name',`speaker_name`='$speaker_name',`image`='$speech_image_name' WHERE id='$speech_id'";
+
+            $update_sql = "UPDATE `speech` SET `speech_name`='$speech_name',`speaker_name`='$speaker_name', `image`='$speech_image_name' WHERE id='$speech_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($speech_image_tmp_name, '../Images/speech/' . $speech_image_name);
-                // $compressedImage = compressImage($speech_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_speech.php");
                 ob_end_flush();
@@ -33,13 +29,72 @@ if (isset($_POST['edit_speech'])) {
             }
         }
     } else {
-        $update_sql = "UPDATE `speech` SET `speech_name`='$speech_name',`speaker_name`='$speaker_name' WHERE id='$speech_id'";
-        $run_insert_qry = mysqli_query($conn, $update_sql);
-        if ($run_insert_qry) {
-            header("location: view_speech.php");
-            ob_end_flush();
+        if (!empty($_FILES['pdf_file']['name']) && empty($_FILES['image']['name'])) {
+            $pdf_file_name = $_FILES['pdf_file']['name'];
+            $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];;
+            $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
+            $pdf_file_name = uniqid() . ".$path_info3";
+
+            $arr3 = array("pdf");
+
+            if (!in_array($path_info3, $arr3)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
+            } else {
+                unlink('../Files/speech/pdf_file/' . $current_pdf_file);
+
+                $update_sql = "UPDATE `speech` SET `speech_name`='$speech_name',`speaker_name`='$speaker_name', `pdf_file`='$pdf_file_name' WHERE id='$speech_id'";
+                $run_insert_qry = mysqli_query($conn, $update_sql);
+                if ($run_insert_qry) {
+                    move_uploaded_file($pdf_file_tmp_name, '../Files/speech/pdf_file/' . $pdf_file_name);
+                    header("location: view_speech.php");
+                    ob_end_flush();
+                } else {
+                    echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+                }
+            }
+        } else if (!empty($_FILES['image']['name'] && $_FILES['pdf_file']['name'])) {
+            $speech_image_name = $_FILES['image']['name'];
+            $speech_image_tmp_name = $_FILES['image']['tmp_name'];
+            $path_info = strtolower(pathinfo($speech_image_name, PATHINFO_EXTENSION));
+            $speech_image_name = uniqid() . ".$path_info";
+
+            $arr = array("jpg", "png", "jpeg");
+
+            $pdf_file_name = $_FILES['pdf_file']['name'];
+            $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
+            $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
+            $pdf_file_name = uniqid() . ".$path_info3";
+
+            $arr3 = array("pdf");
+
+            if (!in_array($path_info, $arr)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
+            } else if (!in_array($path_info3, $arr3)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
+            } else {
+                unlink('../Images/speech/' . $current_image);
+                unlink('../Files/speech/pdf_file/' . $current_pdf_file);
+
+                $update_sql = "UPDATE `speech` SET `speech_name`='$speech_name',`speaker_name`='$speaker_name', `image`='$speech_image_name', `pdf_file`='$pdf_file_name' WHERE id='$speech_id'";
+                $run_insert_qry = mysqli_query($conn, $update_sql);
+                if ($run_insert_qry) {
+                    move_uploaded_file($speech_image_tmp_name, '../Images/speech/' . $speech_image_name);
+                    move_uploaded_file($pdf_file_tmp_name, '../Files/speech/pdf_file/' . $pdf_file_name);
+                    header("location: view_speech.php");
+                    ob_end_flush();
+                } else {
+                    echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+                }
+            }
         } else {
-            echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+            $update_sql = "UPDATE `speech` SET `speech_name`='$speech_name',`speaker_name`='$speaker_name' WHERE id='$speech_id'";
+            $run_insert_qry = mysqli_query($conn, $update_sql);
+            if ($run_insert_qry) {
+                header("location: view_speech.php");
+                ob_end_flush();
+            } else {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+            }
         }
     }
 }
@@ -77,6 +132,15 @@ if (isset($_GET['speech_id'])) {
                     <div class="mt-3">
                         <label for="image">নতুন ছবি সংযুক্তি</label>
                         <input type="file" name="image" id="image" class="form-control">
+                    </div>
+                    <div class="mt-3">
+                        <label>পূর্ববর্তী পিডিএফ ফাইল</label><br>
+                        <a href="../Files/speech/pdf_file/<?php echo $pdf_file ?>"><?php echo $pdf_file ?></a>
+                        <input type="hidden" name="current_pdf_file" value="<?php echo $pdf_file; ?>" />
+                    </div>
+                    <div class="mt-3">
+                        <label for="pdf_file">নতুন পিডিএফ ফাইল সংযুক্তি</label>
+                        <input type="file" name="pdf_file" id="pdf_file" class="form-control">
                     </div>
                     <div class="mt-3">
                         <input type="submit" name="edit_speech" value="Update" class="btn btn-primary">

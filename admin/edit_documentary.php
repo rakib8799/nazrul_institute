@@ -1,6 +1,4 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
-
 
 <?php
 if (isset($_POST['edit_documentary'])) {
@@ -9,12 +7,8 @@ if (isset($_POST['edit_documentary'])) {
     if (!empty($_FILES['image']['name'])) {
         $documentary_image_name = $_FILES['image']['name'];
         $documentary_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($documentary_image_name, PATHINFO_EXTENSION));
-
         $documentary_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/documentary/' . $documentary_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
 
@@ -23,11 +17,10 @@ if (isset($_POST['edit_documentary'])) {
         } else {
             unlink('../Images/documentary/' . $current_image);
 
-            $update_sql = "UPDATE `documentary` SET `title`='$long_desc1',`screenplay_name`='$screenplay_name',`image`='$documentary_image_name' WHERE id='$documentary_id'";
+            $update_sql = "UPDATE `documentary` SET `title`='$title',`screenplay_name`='$screenplay_name',`image`='$documentary_image_name' WHERE id='$documentary_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($documentary_image_tmp_name, '../Images/documentary/' . $documentary_image_name);
-                // $compressedImage = compressImage($documentary_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_documentary.php");
                 ob_end_flush();
@@ -37,30 +30,19 @@ if (isset($_POST['edit_documentary'])) {
         }
     } else {
         if (!empty($_FILES['pdf_file']['name'])) {
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
             if (!in_array($path_info3, $arr3)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
-            }
-            // else if (!in_array($path_info4, $arr4)) {
-            //     echo "<p class='text-danger text-bold text-center fs-5 mt-3'>File must be in doc or docx format</p>";
-            // }
-            else {
-                // unlink('../Files/documentary/doc_file/' . $current_doc_file);
+            } else {
                 unlink('../Files/documentary/pdf_file/' . $current_pdf_file);
-                $update_sql = "UPDATE `documentary` SET `title`='$long_desc1',`screenplay_name`='$screenplay_name',`pdf_file`='$pdf_file_name' WHERE id='$documentary_id'";
+                $update_sql = "UPDATE `documentary` SET `title`='$title',`screenplay_name`='$screenplay_name',`pdf_file`='$pdf_file_name' WHERE id='$documentary_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
-                if ($run_insert_qry) {
-                    // move_uploaded_file($doc_file_tmp_name, '../Files/documentary/doc_file/' . $doc_file_name);
+                if ($run_insert_qry) {;
                     move_uploaded_file($pdf_file_tmp_name, '../Files/documentary/pdf_file/' . $pdf_file_name);
                     header("location: view_documentary.php");
                     ob_end_flush();
@@ -77,20 +59,16 @@ if (isset($_POST['edit_documentary'])) {
             $documentary_image_name = uniqid() . ".$path_info";
 
             $arr = array("jpg", "png", "jpeg");
-            // $imageUploadPath = '../Images/documentary/' . $documentary_image_name;
 
-
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
+
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
+
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
+
 
             if (!in_array($path_info, $arr)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
@@ -100,12 +78,10 @@ if (isset($_POST['edit_documentary'])) {
                 unlink('../Images/documentary/' . $current_image);
                 unlink('../Files/documentary/pdf_file/' . $current_pdf_file);
 
-                $update_sql = "UPDATE `documentary` SET `title`='$long_desc1',`screenplay_name`='$screenplay_name',`image`='$documentary_image_name',`pdf_file`='$pdf_file_name' WHERE id='$documentary_id'";
+                $update_sql = "UPDATE `documentary` SET `title`='$title',`screenplay_name`='$screenplay_name',`image`='$documentary_image_name',`pdf_file`='$pdf_file_name' WHERE id='$documentary_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
                     move_uploaded_file($documentary_image_tmp_name, '../Images/documentary/' . $documentary_image_name);
-                    // $compressedImage = compressImage($documentary_image_tmp_name, $imageUploadPath, 75);
-
                     move_uploaded_file($pdf_file_tmp_name, '../Files/documentary/pdf_file/' . $pdf_file_name);
                     header("location: view_documentary.php");
                     ob_end_flush();
@@ -114,7 +90,7 @@ if (isset($_POST['edit_documentary'])) {
                 }
             }
         } else {
-            $update_sql = "UPDATE `documentary` SET `title`='$long_desc1',`screenplay_name`='$screenplay_name' WHERE id='$documentary_id'";
+            $update_sql = "UPDATE `documentary` SET `title`='$title',`screenplay_name`='$screenplay_name' WHERE id='$documentary_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 header("location: view_documentary.php");
@@ -124,50 +100,6 @@ if (isset($_POST['edit_documentary'])) {
             }
         }
     }
-
-
-
-
-
-    // if (!empty($_FILES['image']['name'])) {
-    //     $documentary_image_name = $_FILES['image']['name'];
-    //     $documentary_image_tmp_name = $_FILES['image']['tmp_name'];
-
-    //     $path_info = strtolower(pathinfo($documentary_image_name, PATHINFO_EXTENSION));
-
-    //     $documentary_image_name = uniqid() . ".$path_info";
-    //     // $imageUploadPath = '../Images/documentary/' . $documentary_image_name;
-
-
-    //     $arr = array("jpg", "png", "jpeg");
-
-    //     if (!in_array($path_info, $arr)) {
-    //         echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
-    //     } else {
-    //         unlink('../Images/documentary/' . $current_image);
-
-    //         $update_sql = "UPDATE `documentary` SET `title`='$long_desc1',`screenplay_name`='$screenplay_name',`image`='$documentary_image_name' WHERE id='$documentary_id'";
-    //         $run_insert_qry = mysqli_query($conn, $update_sql);
-    //         if ($run_insert_qry) {
-    //             move_uploaded_file($documentary_image_tmp_name, '../Images/documentary/' . $documentary_image_name);
-    //             // $compressedImage = compressImage($documentary_image_tmp_name, $imageUploadPath, 75);
-
-    //             header("location: view_documentary.php");
-    //             ob_end_flush();
-    //         } else {
-    //             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
-    //         }
-    //     }
-    // } else {
-    //     $update_sql = "UPDATE `documentary` SET `title`='$long_desc1',`screenplay_name`='$screenplay_name' WHERE id='$documentary_id'";
-    //     $run_insert_qry = mysqli_query($conn, $update_sql);
-    //     if ($run_insert_qry) {
-    //         header("location: view_documentary.php");
-    //         ob_end_flush();
-    //     } else {
-    //         echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
-    //     }
-    // }
 }
 ?>
 
@@ -187,8 +119,8 @@ if (isset($_GET['documentary_id'])) {
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="documentary_id" value="<?php echo $id; ?>" />
                     <div class="mt-3">
-                        <label for="long_desc1">শিরোনাম</label>
-                        <textarea name="long_desc1" class="long_desc" id="long_desc1"><?php echo $title; ?></textarea>
+                        <label for="title">শিরোনাম</label>
+                        <input type="text" class="form-control" name="title" id="title" value="<?php echo $title; ?>" placeholder="শিরোনাম লিখুন">
                     </div>
                     <div class="mt-3">
                         <label for="screenplay_name">চিত্রনাট্য ও পরিচালনা</label>

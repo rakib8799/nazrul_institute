@@ -74,7 +74,17 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
+
+                                            <?php if (isset($researcher_final_report_file) && $researcher_final_report_file !== "N/A") {
+                                            ?>
+                                                <a href="../Files/project_submission_student/pdf_file/report/<?php echo  $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <?php echo $researcher_final_report_file ?>
+                                            <?php
+                                            }
+                                            ?>
                                         </td>
                                         <td><?php echo $created_at; ?></td>
                                         <!-- <td>
@@ -165,7 +175,16 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
+                                            <?php if (isset($advisor_final_report_file) && $advisor_final_report_file !== "N/A") {
+                                            ?>
+                                                <a href="../Files/project_submission_teacher/pdf_file/report/<?php echo  $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <?php echo $advisor_final_report_file ?>
+                                            <?php
+                                            }
+                                            ?>
                                         </td>
                                         <td><?php echo $created_at; ?></td>
                                         <!-- <td>

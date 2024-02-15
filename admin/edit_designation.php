@@ -34,11 +34,6 @@ if (isset($_GET['year_id'])) {
                         <label for="designation">পদবি</label>
                         <input type="text" name="designation" id="designation" class="form-control" placeholder="পদবি লিখুন" value="<?php echo $designation ?>" required>
                     </div>
-                    <!-- <div class="mt-3">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                        <label for="session_year">শিক্ষাবর্ষ</label>
-                        <input type="text" name="session_year" id="session_year" class="form-control" placeholder="শিক্ষাবর্ষ লিখুন" value="<?php echo $session_year ?>" required>
-                    </div> -->
                     <div class="mt-3">
                         <input type="submit" name="edit_designation" value="Update" class="btn btn-primary">
                     </div>

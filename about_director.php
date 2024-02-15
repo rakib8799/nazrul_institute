@@ -43,7 +43,7 @@
                             ?>
                                 <div class="d-flex align-items-center" style="min-height: 55vh;">
                                     <div class="card-body">
-                                        <p class="card-title fw-bold fs-5 text-center"><?php echo $name ?></p>
+                                        <p class="card-title fw-bold fs-5 text-center"><?php echo $title ?></p>
                                         <p class="card-text text-justify"><?php echo $details ?></p>
                                     </div>
                                 </div>

@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <a href="add_memorandum.php" class="btn btn-primary mb-5">দ্বি-পাক্ষিক সমঝোতা চুক্তি সম্পর্কে তথ্য সংযুক্তি</a>
@@ -14,6 +13,7 @@ $obj = new BanglaNumberToWord();
                     <thead>
                         <tr>
                             <th class="text-center">ক্র.ন.</th>
+                            <th class="text-center">শিরোনাম</th>
                             <th class="text-center">বিস্তারিত</th>
                             <th class="text-center" style="width: 5vw">সংশোধন</th>
                         </tr>
@@ -29,6 +29,7 @@ $obj = new BanglaNumberToWord();
                         ?>
                                 <tr>
                                     <td><?php echo $obj->engToBn($serial_no) ?></td>
+                                    <td><?php echo $title; ?></td>
                                     <td><?php echo $details; ?></td>
                                     <td>
                                         <a href="edit_memorandum.php?memorandum_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>

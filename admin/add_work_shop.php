@@ -1,27 +1,26 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['add_work_shop'])) {
     extract($_POST);
+
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
 
     if (isset($_FILES['image']['name'])) {
         $workshop_image_name = $_FILES['image']['name'];
         $workshop_image_tmp_name = $_FILES['image']['tmp_name'];
         $path_info = strtolower(pathinfo($workshop_image_name, PATHINFO_EXTENSION));
         $workshop_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/workshop/' . $workshop_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
         if (!in_array($path_info, $arr)) {
             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
         } else {
-            $insert_sql = "INSERT INTO `work_shop`(`title`,`details`,`image`) VALUES('$title1','$long_desc1','$workshop_image_name')";
+            $insert_sql = "INSERT INTO `work_shop`(`title`,`details`,`image`,`created_at`) VALUES('$title1','$long_desc1','$workshop_image_name','$current_time')";
             $run_insert_qry = mysqli_query($conn, $insert_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($workshop_image_tmp_name, '../Images/workshop/' . $workshop_image_name);
-                // $compressedImage = compressImage($workshop_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_work_shop.php");
                 ob_end_flush();

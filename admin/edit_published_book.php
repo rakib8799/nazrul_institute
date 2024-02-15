@@ -1,5 +1,4 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['edit_publication_book'])) {
@@ -8,12 +7,8 @@ if (isset($_POST['edit_publication_book'])) {
     if (!empty($_FILES['image']['name'])) {
         $publication_book_image_name = $_FILES['image']['name'];
         $publication_book_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($publication_book_image_name, PATHINFO_EXTENSION));
-
         $publication_book_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/publication_book/' . $publication_book_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
 
@@ -26,7 +21,6 @@ if (isset($_POST['edit_publication_book'])) {
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($publication_book_image_tmp_name, '../Images/publication_book/' . $publication_book_image_name);
-                // $compressedImage = compressImage($publication_book_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_published_book.php");
                 ob_end_flush();
@@ -36,30 +30,20 @@ if (isset($_POST['edit_publication_book'])) {
         }
     } else {
         if (!empty($_FILES['pdf_file']['name'])) {
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
+
             if (!in_array($path_info3, $arr3)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
-            }
-            // else if (!in_array($path_info4, $arr4)) {
-            //     echo "<p class='text-danger text-bold text-center fs-5 mt-3'>File must be in doc or docx format</p>";
-            // }
-            else {
-                // unlink('../Files/publication_book/doc_file/' . $current_doc_file);
+            } else {
                 unlink('../Files/publication_book/pdf_file/' . $current_pdf_file);
                 $update_sql = "UPDATE `publication_book` SET `book_name`='$publication_book_name',`publisher_name`='$publisher_name',`pdf_file`='$pdf_file_name' WHERE id='$published_book_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
-                    // move_uploaded_file($doc_file_tmp_name, '../Files/publication_book/doc_file/' . $doc_file_name);
                     move_uploaded_file($pdf_file_tmp_name, '../Files/publication_book/pdf_file/' . $pdf_file_name);
                     header("location: view_published_book.php");
                     ob_end_flush();
@@ -70,26 +54,17 @@ if (isset($_POST['edit_publication_book'])) {
         } else if (!empty($_FILES['image']['name'] && $_FILES['pdf_file']['name'])) {
             $publication_book_image_name = $_FILES['image']['name'];
             $publication_book_image_tmp_name = $_FILES['image']['tmp_name'];
-
             $path_info = strtolower(pathinfo($publication_book_image_name, PATHINFO_EXTENSION));
-
             $publication_book_image_name = uniqid() . ".$path_info";
-            // $imageUploadPath = '../Images/publication_book/' . $publication_book_image_name;
-
 
             $arr = array("jpg", "png", "jpeg");
 
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
 
             if (!in_array($path_info, $arr)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
@@ -103,8 +78,6 @@ if (isset($_POST['edit_publication_book'])) {
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
                     move_uploaded_file($publication_book_image_tmp_name, '../Images/publication_book/' . $publication_book_image_name);
-                    // $compressedImage = compressImage($publication_book_image_tmp_name, $imageUploadPath, 75);
-
                     move_uploaded_file($pdf_file_tmp_name, '../Files/publication_book/pdf_file/' . $pdf_file_name);
                     header("location: view_published_book.php");
                     ob_end_flush();
@@ -124,52 +97,6 @@ if (isset($_POST['edit_publication_book'])) {
         }
     }
 }
-
-
-
-// if (isset($_POST['edit_publication_book'])) {
-//     extract($_POST);
-
-//     if (!empty($_FILES['image']['name'])) {
-//         $publication_book_image_name = $_FILES['image']['name'];
-//         $publication_book_image_tmp_name = $_FILES['image']['tmp_name'];
-
-//         $path_info = strtolower(pathinfo($publication_book_image_name, PATHINFO_EXTENSION));
-
-//         $publication_book_image_name = uniqid() . ".$path_info";
-//         // $imageUploadPath = '../Images/publication_book/' . $publication_book_image_name;
-
-
-//         $arr = array("jpg", "png", "jpeg");
-
-//         if (!in_array($path_info, $arr)) {
-//             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
-//         } else {
-//             unlink('../Images/publication_book/' . $current_image);
-
-//             $update_sql = "UPDATE `publication_book` SET `book_name`='$publication_book_name',`publisher_name`='$publisher_name',`image`='$publication_book_image_name' WHERE id='$published_book_id'";
-//             $run_insert_qry = mysqli_query($conn, $update_sql);
-//             if ($run_insert_qry) {
-//                 move_uploaded_file($publication_book_image_tmp_name, '../Images/publication_book/' . $publication_book_image_name);
-//                 // $compressedImage = compressImage($publication_book_image_tmp_name, $imageUploadPath, 75);
-
-//                 header("location: view_published_book.php");
-//                 ob_end_flush();
-//             } else {
-//                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
-//             }
-//         }
-//     } else {
-//         $update_sql = "UPDATE `publication_book` SET `book_name`='$publication_book_name',`publisher_name`='$publisher_name' WHERE id='$published_book_id'";
-//         $run_insert_qry = mysqli_query($conn, $update_sql);
-//         if ($run_insert_qry) {
-//             header("location: view_published_book.php");
-//             ob_end_flush();
-//         } else {
-//             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
-//         }
-//     }
-// }
 ?>
 
 <?php

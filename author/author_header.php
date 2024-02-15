@@ -1,5 +1,4 @@
 <?php
-ob_start();
 require_once("../database/connection.php");
 if (!isset($_SESSION['author_id'])) {
   header('location: ../index.php');
@@ -63,7 +62,7 @@ if (!isset($_SESSION['author_id'])) {
                   <div data-i18n="Paper Details">নতুন সাবমিট করা প্রকল্পগুলোর বিস্তারিত</div>
                 </a>
               </li>
-              <li class="menu-item">
+              <!-- <li class="menu-item">
                 <a href="resubmission_papers.php" class="menu-link">
                   <div data-i18n="Paper Details">সাবমিট করা ত্রুটিযুক্ত প্রকল্পগুলোর বিস্তারিত</div>
                 </a>
@@ -72,7 +71,7 @@ if (!isset($_SESSION['author_id'])) {
                 <a href="resubmission_papers_updated.php" class="menu-link">
                   <div data-i18n="Paper Details">পুনরায় সাবমিট করা প্রকল্পগুলোর বিস্তারিত</div>
                 </a>
-              </li>
+              </li> -->
               <li class="menu-item">
                 <a href="report_submission.php" class="menu-link">
                   <div data-i18n="Paper Details">চূড়ান্ত প্রতিবেদন জমা</div>

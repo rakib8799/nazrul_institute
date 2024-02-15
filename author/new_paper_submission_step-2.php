@@ -1,5 +1,4 @@
 <?php include('author_header.php') ?>
-<link rel="stylesheet" href="../style.css">
 
 <?php
 if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
@@ -10,13 +9,11 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-
             $pdf_file_name = uniqid() . ".$path_info3";
-
 
             $arr3 = array("pdf");
             if (!in_array($path_info3, $arr3)) {
-                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>File must be in pdf format</p>";
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>ফাইলের ফরম্যাট অবশ্যই PDF হতে হবে।</p>";
             } else {
                 $_SESSION['researcher_project_title_bd'] = $researcher_project_title_bd;
                 $_SESSION['researcher_project_title_en'] = $researcher_project_title_en;
@@ -26,13 +23,17 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                 $_SESSION['long_desc4'] = $long_desc4;
                 $_SESSION['long_desc5'] = $long_desc5;
                 $_SESSION['long_desc6'] = $long_desc6;
-                $_SESSION['pdf_file'] = $pdf_file_name;
-                $_SESSION['pdf_file_tmp_name'] = $pdf_file_tmp_name;
-                $_SESSION['long_desc7'] = $long_desc7;
-            }
 
-            header("location: new_paper_submission_step-3.php");
-            ob_end_flush();
+                $_SESSION['long_desc7'] = $long_desc7;
+
+                if (move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_student/pdf_file/proposal/' . $pdf_file_name)) {
+                    $_SESSION['pdf_file'] = $pdf_file_name;
+                    $_SESSION['pdf_file_tmp_name'] = $pdf_file_tmp_name;
+
+                    header("location: new_paper_submission_step-3.php");
+                    ob_end_flush();
+                }
+            }
         }
     }
 ?>
@@ -40,7 +41,7 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         <!-- <h3 class="text-center secondaryColor fw-bold">নতুন প্রকল্প সাবমিশন করুন</h3> -->
         <div class="col">
             <div class="card pt-5 pb-4 shadow mb-5 px-md-5 px-3 bg-body rounded">
-                <form action="" method="POST" enctype="multipart/form-data" onsubmit="return confirmPaper()">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <h6><b>প্রকল্পের সংক্ষিপ্ত বিবরণ</b><span class="text-danger"> *</span></h6>
                     <div class="mt-2 ms-5">
                         <label for="researcher_project_title_bd">প্রকল্পের শিরোনাম (বাংলায়)<span class="text-danger"> *</span></label>
@@ -105,11 +106,11 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         </div>
     </div>
 <?php
-} else {
+} else if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Teacher') {
     if (isset($_POST['next-step-2'])) {
         extract($_POST);
 
-        if (isset($_FILES['pdf_file']['name'])) {
+        if (!empty($_FILES['pdf_file']['name'])) {
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
@@ -127,18 +128,22 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                 $_SESSION['long_desc4'] = $long_desc4;
                 $_SESSION['long_desc5'] = $long_desc5;
                 $_SESSION['long_desc6'] = $long_desc6;
-                $_SESSION['pdf_file'] = $pdf_file_name;
-                $_SESSION['pdf_file_tmp_name'] = $pdf_file_tmp_name;
+
                 $_SESSION['long_desc7'] = $long_desc7;
                 $_SESSION['long_desc8'] = $long_desc8;
                 $_SESSION['long_desc9'] = $long_desc9;
                 $_SESSION['advisor_applicant_appointment_period'] = $advisor_applicant_appointment_period;
                 $_SESSION['advisor_performance_indicators'] = $advisor_performance_indicators;
                 $_SESSION['advisor_assessment_expertName'] = $advisor_assessment_expertName;
-            }
 
-            header("location: new_paper_submission_step-3.php");
-            ob_end_flush();
+                if (move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_teacher/pdf_file/proposal/' . $pdf_file_name)) {
+                    $_SESSION['pdf_file'] = $pdf_file_name;
+                    $_SESSION['pdf_file_tmp_name'] = $pdf_file_tmp_name;
+
+                    header("location: new_paper_submission_step-3.php");
+                    ob_end_flush();
+                }
+            }
         }
     }
 ?>
@@ -146,7 +151,7 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         <!-- <h3 class="text-center secondaryColor fw-bold">নতুন প্রকল্প সাবমিশন করুন</h3> -->
         <div class="col">
             <div class="card pt-5 pb-4 shadow mb-5 px-md-5 px-3 bg-body rounded">
-                <form action="" method="POST" enctype="multipart/form-data" onsubmit="return confirmPaper()">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <h6><b>প্রকল্পের সংক্ষিপ্ত বিবরণ</b><span class="text-danger"> *</span></h6>
                     <div class="mt-2 ms-5">
                         <label for="long_desc1">প্রকল্পের উদ্দেশ্য ও লক্ষ্য (১০০ শব্দের মধ্যে)<span class="text-danger"> *</span></label>

@@ -1,9 +1,13 @@
 <?php include("admin_header.php") ?>
+
 <?php
 if (isset($_POST['add_director_msg'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `director_message`(`title`,`details`) VALUES('$title','$long_desc1')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `director_message`(`title`,`details`,`created_at`) VALUES('$title','$long_desc1','$current_time')";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_director_message.php");
@@ -13,6 +17,7 @@ if (isset($_POST['add_director_msg'])) {
     }
 }
 ?>
+
 <div class="container-fluid  mt-5 d-flex justify-content-center">
     <div class="col-md-8 col-12">
         <h2 class="text-capitalize text-center">বর্তমান পরিচালকের বার্তা সংযুক্তি</h2>

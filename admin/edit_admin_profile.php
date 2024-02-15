@@ -13,8 +13,6 @@ if (isset($_POST['edit_profile'])) {
         $update_sql = "UPDATE `admin_information` SET `admin_name`='$name',`admin_email`='$email' WHERE admin_id='$profile_id'";
         $run_insert_qry = mysqli_query($conn, $update_sql);
         if ($run_insert_qry) {
-            // header("location: view_admin_profile.php");
-            // ob_end_flush();
             echo "<p class='text-success text-bold text-center fs-5 mt-3'>আপনার প্রোফাইলের তথ্য সফলভাবে সংশোধন হয়েছে</p>";
 ?>
             <script>
@@ -40,8 +38,6 @@ if (isset($_POST['edit_profile'])) {
         $update_sql = "UPDATE `admin_information` SET `admin_name`='$name',`admin_email`='$email' WHERE admin_id='$profile_id'";
         $run_insert_qry = mysqli_query($conn, $update_sql);
         if ($run_insert_qry) {
-            // header("location: view_admin_profile.php");
-            // ob_end_flush();
             echo "<p class='text-success text-bold text-center fs-5 mt-3'>Your Profile information is  successfully updated.</p>";
 ?>
             <script>

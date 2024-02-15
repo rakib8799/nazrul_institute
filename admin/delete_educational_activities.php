@@ -1,11 +1,16 @@
 <?php include("admin_header.php") ?>
+
 <?php
-if (isset($_GET['id'])) {
+if (isset($_GET['id'], $_GET['image'], $_GET['pdf_file'])) {
     $id = $_GET['id'];
+    $image = $_GET['image'];
+    $pdf_file = $_GET['pdf_file'];
     $deleteData = "DELETE FROM educational_activities WHERE id = $id";
     $result = mysqli_query($conn, $deleteData);
     if ($result) {
-        // echo "<p class='text-danger text-bold text-center fs-5 mt-3'>Deleted successfully</p>";
+        unlink('../Images/educational_activities/' . $image);
+        unlink('../Files/educational_activities/pdf_file/' . $pdf_file);
+
         header("Location: view_educational_activities.php");
         ob_end_flush();
     } else {
@@ -13,4 +18,5 @@ if (isset($_GET['id'])) {
     }
 }
 ?>
+
 <?php include("admin_footer.php") ?>

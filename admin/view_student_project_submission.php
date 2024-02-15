@@ -4,7 +4,6 @@
 
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 
 <?php
@@ -88,11 +87,9 @@ if (isset($_POST['update'])) {
                                     <td><?php echo $researcher_salaryExp; ?></td>
                                     <td><?php echo $researcher_projectResultForDegree; ?></td>
                                     <td>
-                                        <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
                                         <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
                                     </td>
                                     <td>
-                                        <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
                                         <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
                                     </td>
                                     <td><?php echo $created_at; ?></td>
@@ -113,8 +110,6 @@ if (isset($_POST['update'])) {
                                         </form>
                                     </td>
                                     <td>
-                                        <!-- <a href="edit_notice.php?notice_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a> -->
-
                                         <a href="delete_student_project_submission.php?id=<?php echo $id ?>&&pdf_file1=<?php echo $researcher_project_reportPdf; ?>&&pdf_file2=<?php if (isset($researcher_final_report_file) && $researcher_final_report_file != 'N/A') {
                                                                                                                                                                                     echo $researcher_final_report_file;
                                                                                                                                                                                 } else {

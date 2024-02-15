@@ -1,9 +1,13 @@
 <?php include("admin_header.php") ?>
+
 <?php
 if (isset($_POST['add_faculty'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `faculties`(`faculty`) VALUES('$faculty')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `faculties`(`faculty`,`created_at`) VALUES('$faculty','$current_time')";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_faculties.php");

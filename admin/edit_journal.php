@@ -1,6 +1,4 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
-
 
 <?php
 if (isset($_POST['edit_journal'])) {
@@ -9,12 +7,8 @@ if (isset($_POST['edit_journal'])) {
     if (!empty($_FILES['image']['name'])) {
         $journal_image_name = $_FILES['image']['name'];
         $journal_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($journal_image_name, PATHINFO_EXTENSION));
-
         $journal_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/journal/' . $journal_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
 
@@ -23,11 +17,10 @@ if (isset($_POST['edit_journal'])) {
         } else {
             unlink('../Images/journal/' . $current_image);
 
-            $update_sql = "UPDATE `journal` SET `title`='$long_desc1',`image`='$journal_image_name' WHERE id='$journal_id'";
+            $update_sql = "UPDATE `journal` SET `title`='$title',`image`='$journal_image_name' WHERE id='$journal_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($journal_image_tmp_name, '../Images/journal/' . $journal_image_name);
-                // $compressedImage = compressImage($journal_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_journal.php");
                 ob_end_flush();
@@ -37,30 +30,19 @@ if (isset($_POST['edit_journal'])) {
         }
     } else {
         if (!empty($_FILES['pdf_file']['name'])) {
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
             if (!in_array($path_info3, $arr3)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
-            }
-            // else if (!in_array($path_info4, $arr4)) {
-            //     echo "<p class='text-danger text-bold text-center fs-5 mt-3'>File must be in doc or docx format</p>";
-            // }
-            else {
-                // unlink('../Files/journal/doc_file/' . $current_doc_file);
+            } else {
                 unlink('../Files/journal/pdf_file/' . $current_pdf_file);
-                $update_sql = "UPDATE `journal` SET `title`='$long_desc1',`pdf_file`='$pdf_file_name' WHERE id='$journal_id'";
+                $update_sql = "UPDATE `journal` SET `title`='$title',`pdf_file`='$pdf_file_name' WHERE id='$journal_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
-                    // move_uploaded_file($doc_file_tmp_name, '../Files/journal/doc_file/' . $doc_file_name);
                     move_uploaded_file($pdf_file_tmp_name, '../Files/journal/pdf_file/' . $pdf_file_name);
 
                     header("location: view_journal.php");
@@ -72,26 +54,17 @@ if (isset($_POST['edit_journal'])) {
         } else if (!empty($_FILES['image']['name'] && $_FILES['pdf_file']['name'])) {
             $journal_image_name = $_FILES['image']['name'];
             $journal_image_tmp_name = $_FILES['image']['tmp_name'];
-
             $path_info = strtolower(pathinfo($journal_image_name, PATHINFO_EXTENSION));
-
             $journal_image_name = uniqid() . ".$path_info";
 
             $arr = array("jpg", "png", "jpeg");
-            // $imageUploadPath = '../Images/journal/' . $journal_image_name;
 
-
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
 
             if (!in_array($path_info, $arr)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
@@ -101,12 +74,10 @@ if (isset($_POST['edit_journal'])) {
                 unlink('../Images/journal/' . $current_image);
                 unlink('../Files/journal/pdf_file/' . $current_pdf_file);
 
-                $update_sql = "UPDATE `journal` SET `title`='$long_desc1',`image`='$journal_image_name',`pdf_file`='$pdf_file_name' WHERE id='$journal_id'";
+                $update_sql = "UPDATE `journal` SET `title`='$title',`image`='$journal_image_name',`pdf_file`='$pdf_file_name' WHERE id='$journal_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
                     move_uploaded_file($journal_image_tmp_name, '../Images/journal/' . $journal_image_name);
-                    // $compressedImage = compressImage($journal_image_tmp_name, $imageUploadPath, 75);
-
                     move_uploaded_file($pdf_file_tmp_name, '../Files/journal/pdf_file/' . $pdf_file_name);
                     header("location: view_journal.php");
                     ob_end_flush();
@@ -115,7 +86,7 @@ if (isset($_POST['edit_journal'])) {
                 }
             }
         } else {
-            $update_sql = "UPDATE `journal` SET `title`='$long_desc1' WHERE id='$journal_id'";
+            $update_sql = "UPDATE `journal` SET `title`='$title' WHERE id='$journal_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 header("location: view_journal.php");
@@ -144,8 +115,8 @@ if (isset($_GET['journal_id'])) {
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="journal_id" value="<?php echo $id; ?>" />
                     <div class="mt-3">
-                        <label for="long_desc1">শিরোনাম</label>
-                        <textarea name="long_desc1" class="long_desc" id="long_desc1"><?php echo $title; ?></textarea>
+                        <label for="title">শিরোনাম</label>
+                        <input type="text" class="form-control" name="title" id="title" value="<?php echo $title; ?>" placeholder="শিরোনাম লিখুন">
                     </div>
 
                     <div class="mt-3">

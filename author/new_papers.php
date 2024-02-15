@@ -7,7 +7,7 @@ $obj = new BanglaNumberToWord();
 // echo $obj->engToBn(5207.56);
 ?>
 <?php
-if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
+if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESSION['author_role'] === 'Student') {
 ?>
     <div class="container-fluid mt-5">
         <h3 class="text-center secondaryColor fw-bold">প্রকল্পগুলোর সম্পর্কে বিস্তারিত দেখুন</h3>
@@ -36,7 +36,9 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                         <tbody>
                             <?php
                             $researcher_author_id = $_SESSION["author_id"];
-                            $select_from_new_paper = "SELECT * FROM project_submission_student WHERE `researcher_author_id` = '$researcher_author_id' AND `paper_status`='1'";
+                            $researcher_notice_id = $_SESSION['researcher_notice_id'];
+
+                            $select_from_new_paper = "SELECT * FROM project_submission_student WHERE `researcher_author_id` = '$researcher_author_id' AND `paper_status`='1' AND `researcher_notice_id`='$researcher_notice_id'";
                             $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                             $serial_no = 1;
                             if (mysqli_num_rows($run_select_from_new_paper) > 0) {
@@ -69,11 +71,20 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                                         <td><?php echo $researcher_projectResultForDegree; ?></td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
+                                            <a href="../Files/project_submission_student/pdf_file/proposal/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
+                                            <?php if (isset($researcher_final_report_file) && $researcher_final_report_file !== "N/A") {
+                                            ?>
+                                                <a href="../Files/project_submission_student/pdf_file/report/<?php echo  $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <?php echo $researcher_final_report_file ?>
+                                            <?php
+                                            }
+                                            ?>
                                         </td>
                                         <td><?php echo $created_at; ?></td>
                                         <!-- <td>
@@ -98,7 +109,7 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         </div>
     </div>
 <?php
-} else {
+} else if (isset($_SESSION['author_role'], $_SESSION['advisor_notice_id']) && $_SESSION['author_role'] === 'Teacher') {
 ?>
     <div class="container-fluid mt-5">
         <h3 class="text-center secondaryColor fw-bold">প্রকল্পগুলোর সম্পর্কে বিস্তারিত দেখুন</h3>
@@ -127,7 +138,9 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                         <tbody>
                             <?php
                             $advisor_author_id = $_SESSION["author_id"];
-                            $select_from_new_paper = "SELECT * FROM project_submission_teacher WHERE advisor_author_id='$advisor_author_id' AND `paper_status`='1'";
+                            $advisor_notice_id = $_SESSION['advisor_notice_id'];
+
+                            $select_from_new_paper = "SELECT * FROM project_submission_teacher WHERE advisor_author_id='$advisor_author_id' AND `paper_status`='1' AND `advisor_notice_id`='$advisor_notice_id'";
                             $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                             $serial_no = 1;
                             if (mysqli_num_rows($run_select_from_new_paper) > 0) {
@@ -164,7 +177,16 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
+                                            <?php if (isset($advisor_final_report_file) && $advisor_final_report_file !== "N/A") {
+                                            ?>
+                                                <a href="../Files/project_submission_teacher/pdf_file/report/<?php echo  $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <?php echo $advisor_final_report_file ?>
+                                            <?php
+                                            }
+                                            ?>
                                         </td>
                                         <td><?php echo $created_at; ?></td>
                                         <!-- <td>

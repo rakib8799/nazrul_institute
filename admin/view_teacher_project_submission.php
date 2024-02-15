@@ -4,7 +4,6 @@
 
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 
 <?php
@@ -85,11 +84,9 @@ if (isset($_POST['update'])) {
                                     <td><?php echo $advisor_project_salaryExp; ?></td>
                                     <td><?php echo $advisor_projectResultForDegree; ?></td>
                                     <td>
-                                        <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
                                         <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
                                     </td>
                                     <td>
-                                        <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
                                         <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
                                     </td>
                                     <td><?php echo $created_at; ?></td>
@@ -110,7 +107,6 @@ if (isset($_POST['update'])) {
                                         </form>
                                     </td>
                                     <td>
-                                        <!-- <a href="edit_notice.php?notice_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a> -->
                                         <a href="delete_teacher_project_submission.php?id=<?php echo $id ?>&&pdf_file1=<?php echo $advisor_project_proposal_file; ?>&&pdf_file2=<?php if (isset($advisor_final_report_file) && $advisor_final_report_file != 'N/A') {
                                                                                                                                                                                     echo $advisor_final_report_file;
                                                                                                                                                                                 } else {

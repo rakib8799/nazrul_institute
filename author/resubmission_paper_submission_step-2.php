@@ -1,5 +1,4 @@
 <?php include('author_header.php') ?>
-<link rel="stylesheet" href="../style.css">
 
 <?php
 if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION["resubmission_paper_id"]) && $_SESSION['author_role'] === 'Student') {
@@ -39,14 +38,22 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION["resubmiss
                         $_SESSION['long_desc4'] = $long_desc4;
                         $_SESSION['long_desc5'] = $long_desc5;
                         $_SESSION['long_desc6'] = $long_desc6;
-                        $_SESSION['pdf_file'] = $pdf_file_name;
-                        $_SESSION['pdf_file_tmp_name'] = $pdf_file_tmp_name;
-                        $_SESSION['current_pdf_file'] = $current_pdf_file;
-                        $_SESSION['long_desc7'] = $long_desc7;
-                    }
 
-                    header("location: resubmission_paper_submission_step-3.php");
-                    ob_end_flush();
+                        $_SESSION['current_pdf_file'] = $current_pdf_file;
+
+                        $_SESSION['long_desc7'] = $long_desc7;
+
+                        if (move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_student/pdf_file/proposal/' . $pdf_file_name)) {
+                            $_SESSION['pdf_file'] = $pdf_file_name;
+                            $_SESSION['pdf_file_tmp_name'] = $pdf_file_tmp_name;
+                            if (isset($_SESSION['current_pdf_file'])) {
+                                unlink('../Files/project_submission_student/pdf_file/proposal/' . $current_pdf_file);
+                            }
+
+                            header("location: resubmission_paper_submission_step-3.php");
+                            ob_end_flush();
+                        }
+                    }
                 } else {
                     $_SESSION['researcher_project_title_bd'] = $researcher_project_title_bd;
                     $_SESSION['researcher_project_title_en'] = $researcher_project_title_en;
@@ -67,7 +74,7 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION["resubmiss
                 <!-- <h3 class="text-center secondaryColor fw-bold">নতুন প্রকল্প সাবমিশন করুন</h3> -->
                 <div class="col">
                     <div class="card pt-5 pb-4 shadow mb-5 px-md-5 px-3 bg-body rounded">
-                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="return confirmPaper()">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <h6><b>প্রকল্পের সংক্ষিপ্ত বিবরণ</b><span class="text-danger"> *</span></h6>
                             <div class="mt-2 ms-5">
                                 <label for="researcher_project_title_bd">প্রকল্পের শিরোনাম (বাংলায়)<span class="text-danger"> *</span></label>
@@ -84,7 +91,7 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION["resubmiss
 
                             <div class="mt-2 ms-5">
                                 <label for="long_desc1">প্রকল্পের উদ্দেশ্য ও লক্ষ্য (১০০ শব্দের মধ্যে)<span class="text-danger"> *</span></label>
-                                <textarea name="long_desc1" class="long_desc" id="long_desc1"><?php echo $advisor_basic_facilities_unavailable; ?></textarea>
+                                <textarea name="long_desc1" class="long_desc" id="long_desc1"><?php echo $researcher_project_objective; ?></textarea>
                             </div>
                             <div class="mt-2 ms-5">
                                 <label for="long_desc2">প্রকল্পের বিষয়-বস্তুর উপর পর্যালোচনা এবং বর্তমান উদ্যোগের যৌক্তিকতা (২০০ শব্দের মধ্যে)<span class="text-danger"> *</span></label>
@@ -111,7 +118,7 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION["resubmiss
                             </div>
                             <div class="mt-2 ms-5">
                                 <label>প্রকল্পটির প্রস্তাবনার পূর্ববর্তী পিডিএফ ফাইল<span class="text-danger"> *</span></label><br>
-                                <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
+                                <a href="../Files/project_submission_student/pdf_file/proposal/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
                                 <input type="hidden" name="current_pdf_file" value="<?php echo $researcher_project_reportPdf; ?>" />
                             </div>
                             <div class="mt-2 ms-5">
@@ -183,8 +190,7 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION["resubmiss
                         $_SESSION['long_desc4'] = $long_desc4;
                         $_SESSION['long_desc5'] = $long_desc5;
                         $_SESSION['long_desc6'] = $long_desc6;
-                        $_SESSION['pdf_file'] = $pdf_file_name;
-                        $_SESSION['pdf_file_tmp_name'] = $pdf_file_tmp_name;
+
                         $_SESSION['current_pdf_file'] = $current_pdf_file;
                         $_SESSION['long_desc7'] = $long_desc7;
                         $_SESSION['long_desc8'] = $long_desc8;
@@ -192,10 +198,15 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION["resubmiss
                         $_SESSION['advisor_applicant_appointment_period'] = $advisor_applicant_appointment_period;
                         $_SESSION['advisor_performance_indicators'] = $advisor_performance_indicators;
                         $_SESSION['advisor_assessment_expertName'] = $advisor_assessment_expertName;
-                    }
 
-                    header("location: resubmission_paper_submission_step-3.php");
-                    ob_end_flush();
+                        if (move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_teacher/pdf_file/proposal/' . $pdf_file_name)) {
+                            $_SESSION['pdf_file'] = $pdf_file_name;
+                            $_SESSION['pdf_file_tmp_name'] = $pdf_file_tmp_name;
+
+                            header("location: resubmission_paper_submission_step-3.php");
+                            ob_end_flush();
+                        }
+                    }
                 } else {
                     $_SESSION['long_desc1'] = $long_desc1;
                     $_SESSION['long_desc2'] = $long_desc2;
@@ -219,7 +230,7 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION["resubmiss
                 <!-- <h3 class="text-center secondaryColor fw-bold">নতুন প্রকল্প সাবমিশন করুন</h3> -->
                 <div class="col">
                     <div class="card pt-5 pb-4 shadow mb-5 px-md-5 px-3 bg-body rounded">
-                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="return confirmPaper()">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <h6><b>প্রকল্পের সংক্ষিপ্ত বিবরণ</b><span class="text-danger"> *</span></h6>
                             <div class="mt-2 ms-5">
                                 <label for="long_desc1">প্রকল্পের উদ্দেশ্য ও লক্ষ্য (১০০ শব্দের মধ্যে)<span class="text-danger"> *</span></label>

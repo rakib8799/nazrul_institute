@@ -1,7 +1,5 @@
 <?php include("admin_header.php") ?>
 
-<?php include("./functions/compress_image.php") ?>
-
 <?php
 if (isset($_POST['edit_work_shop'])) {
     extract($_POST);
@@ -9,12 +7,8 @@ if (isset($_POST['edit_work_shop'])) {
     if (!empty($_FILES['image']['name'])) {
         $workshop_image_name = $_FILES['image']['name'];
         $workshop_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($workshop_image_name, PATHINFO_EXTENSION));
-
         $workshop_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/workshop/' . $workshop_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
         if (!in_array($path_info, $arr)) {
@@ -25,7 +19,6 @@ if (isset($_POST['edit_work_shop'])) {
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($workshop_image_tmp_name, '../Images/workshop/' . $workshop_image_name);
-                // $compressedImage = compressImage($workshop_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_work_shop.php");
                 ob_end_flush();

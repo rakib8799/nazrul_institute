@@ -12,7 +12,7 @@
             </h2>
             <div class="row d-flex justify-content-center text-center g-4" data-aos="fade-up-right">
                 <?php
-                $select_from_new_paper = "SELECT * FROM `officers` ORDER BY id DESC";
+                $select_from_new_paper = "SELECT * FROM `officers`";
                 $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                 if (mysqli_num_rows($run_select_from_new_paper) > 0) {
                     while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
@@ -21,7 +21,7 @@
                         <div class="col-md-3">
 
                             <div class="card rounded shadow" style="height: 45vh;">
-                                <img src="Images/officer/<?php echo $image ?>" alt="vc_img" class="card-img-top" style="height: 30vh;">
+                                <img src="Images/officer/<?php echo $image ?>" alt="vc_img" class="card-img-top" style="height: 35vh;">
 
                                 <div class="card-body">
 

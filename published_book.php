@@ -18,14 +18,14 @@
                     while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
                         extract($row);
                 ?>
-                        <div class="col-md-3">
+                        <div class="col-md-4" style="min-height: 50vh;">
 
-                            <div class="card rounded shadow" style="min-height: 30vh;">
+                            <div class="card rounded shadow" style="min-height: 50vh;">
                                 <img src="Images/publication_book/<?php echo $image ?>" alt="vc_img" class="card-img-top" style="height: 30vh;">
 
-                                <div class="card-body">
-                                    <h5 class="card-title primary_color" style="height: 6vh;"><?php echo $book_name; ?></h5>
-                                    <p class="card-text" style="height: 3vh;"><?php echo $publisher_name; ?></p>
+                                <div class="card-body" style="min-height: 20vh;">
+                                    <h5 class="card-title fw-bold fs-5 text-center"><?php echo $book_name; ?></h5>
+                                    <p class="card-text"><?php echo $publisher_name; ?></p>
                                     <!-- <a href="./Files/publication_book/pdf_file/<?php echo $pdf_file ?>" target="_blank" class="btn btn-primary">ডাউনলোড</a> -->
                                     <a href="<?php if (isset($pdf_file) && $pdf_file !== "") { ?>./Files/publication_book/pdf_file/<?php echo $pdf_file;
                                                                                                                                 } else {

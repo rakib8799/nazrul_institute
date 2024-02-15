@@ -42,7 +42,9 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION['researche
                         $run_insert_qry = mysqli_query($conn, $update_sql);
                         if ($run_insert_qry) {
                             // move_uploaded_file($doc_file_tmp_name, '../Files/notices/doc_file/' . $doc_file_name);
-                            move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_student/pdf_file/' . $pdf_file_name);
+                            move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_student/pdf_file/report/' . $pdf_file_name);
+
+                            $_SESSION['researcher_final_report_file'] = $researcher_final_report_file;
 
                             $receiver = $_SESSION['author_email'];
                             $subject = "Confirmation of Project Final Report Submission";
@@ -153,7 +155,9 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION['researche
                         $run_insert_qry = mysqli_query($conn, $update_sql);
                         if ($run_insert_qry) {
                             // move_uploaded_file($doc_file_tmp_name, '../Files/notices/doc_file/' . $doc_file_name);
-                            move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_teacher/pdf_file/' . $pdf_file_name);
+                            move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_teacher/pdf_file/report/' . $pdf_file_name);
+
+                            $_SESSION['advisor_final_report_file'] = $advisor_final_report_file;
 
                             $receiver = $_SESSION['author_email'];
                             $subject = "Confirmation of Project Final Report Submission";

@@ -1,9 +1,13 @@
 <?php include("admin_header.php") ?>
+
 <?php
 if (isset($_POST['add_session_year'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `session_years`(`session_year`) VALUES('$session_year')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `session_years`(`session_year`,`created_at`) VALUES('$session_year',`$current_time`)";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_session_years.php");
@@ -22,10 +26,6 @@ if (isset($_POST['add_session_year'])) {
                 <label for="session_year">শিক্ষাবর্ষ</label>
                 <input type="text" name="session_year" id="session_year" class="form-control" placeholder="শিক্ষাবর্ষ লিখুন" required>
             </div>
-            <!-- <div class="mt-3">
-                <label for="session_year">শিক্ষাবর্ষ</label>
-                <input type="text" name="session_year" id="session_year" class="form-control" placeholder="শিক্ষাবর্ষ লিখুন" required>
-            </div> -->
             <div class="mt-3">
                 <input type="submit" name="add_session_year" value="Add" class="btn btn-primary">
             </div>

@@ -1,29 +1,27 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['add_officer'])) {
     extract($_POST);
+
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
 
     if (isset($_FILES['image']['name'])) {
         $officer_image_name = $_FILES['image']['name'];
         $officer_image_tmp_name = $_FILES['image']['tmp_name'];
         $path_info = strtolower(pathinfo($officer_image_name, PATHINFO_EXTENSION));
         $officer_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/officer/' . $officer_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
         if (!in_array($path_info, $arr)) {
             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
         } else {
-            $insert_sql = "INSERT INTO `officers`(`name`,`designation`,`image`) VALUES('$name','$designation','$officer_image_name')";
+            $insert_sql = "INSERT INTO `officers`(`name`,`designation`,`image`,`created_at`) VALUES('$name','$designation','$officer_image_name','$current_time')";
 
             $run_insert_qry = mysqli_query($conn, $insert_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($officer_image_tmp_name, '../Images/officer/' . $officer_image_name);
-                // $compressedImage = compressImage($officer_image_tmp_name, $imageUploadPath, 75);
-
 
                 header("location: view_officers.php");
                 ob_end_flush();

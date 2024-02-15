@@ -1,5 +1,4 @@
 <?php include('author_header.php') ?>
-<link rel="stylesheet" href="../style.css">
 
 <?php
 if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_GET["resubmission_paper_id"]) && $_SESSION['author_role'] === 'Student') {
@@ -20,7 +19,6 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_GET["resubmission_
                 extract($_POST);
 
                 $_SESSION['resubmission_paper_id'] = $_GET["resubmission_paper_id"];
-                $_SESSION['researcher_resubmission_paper_id'] = $_GET["resubmission_paper_id"];
                 $_SESSION['researcher_name_bd'] = $researcher_name_bd;
                 $_SESSION['researcher_name_en'] = $researcher_name_en;
                 $_SESSION['researcher_roll'] = $researcher_roll;
@@ -39,7 +37,7 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_GET["resubmission_
                 <h3 class="text-center secondaryColor fw-bold">শিক্ষার্থীদের গবেষণা প্রকল্প/প্রস্তাব দাখিল করার আবেদনপত্রের ফরম</h3>
                 <div class="col">
                     <div class="card pt-5 pb-4 shadow mb-5 px-md-5 px-3 bg-body rounded">
-                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="return confirmPaper()">
+                        <form action="" method="POST">
                             <h6><b>গবেষকের নাম</b><span class="text-danger"> *</span></h6>
                             <div class="mt-2 ms-5">
                                 <label for="researcher_name_bd">বাংলায়<span class="text-danger"> *</span></label>
@@ -159,7 +157,7 @@ if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_GET["resubmission_
                 <h3 class="text-center secondaryColor fw-bold">শিক্ষকদের গবেষণা প্রকল্প/প্রস্তাব দাখিল করার আবেদনপত্রের ফরম</h3>
                 <div class="col">
                     <div class="card pt-5 pb-4 shadow mb-5 px-md-5 px-3 bg-body rounded">
-                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="return confirmPaper()">
+                        <form action="" method="POST">
                             <h6><b>প্রকল্প পরিচালকের নাম ও পদবি</b><span class="text-danger"> *</span></h6>
                             <div class="mt-2 ms-5">
                                 <label for="advisor_name_designation_bd">বাংলায়<span class="text-danger"> *</span></label>

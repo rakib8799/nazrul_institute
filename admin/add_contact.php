@@ -1,9 +1,13 @@
 <?php include("admin_header.php") ?>
+
 <?php
 if (isset($_POST['add_contact'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `contact`(`email`,`location`,`contact`) VALUES('$email','$location','$contact')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `contact`(`email`,`location`,`contact`,`created_at`) VALUES('$email','$location','$contact','$current_time')";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_contact.php");
@@ -13,6 +17,7 @@ if (isset($_POST['add_contact'])) {
     }
 }
 ?>
+
 <div class="container-fluid  mt-5 d-flex justify-content-center">
     <div class="col-md-8 col-12">
         <h2 class="text-capitalize text-center">ইন্সটিটিউটের সাথে যোগাযোগের তথ্য সংযুক্তি</h2>

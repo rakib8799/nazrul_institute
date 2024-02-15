@@ -1,5 +1,4 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['edit_staff'])) {
@@ -8,12 +7,8 @@ if (isset($_POST['edit_staff'])) {
     if (!empty($_FILES['image']['name'])) {
         $staff_image_name = $_FILES['image']['name'];
         $staff_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($staff_image_name, PATHINFO_EXTENSION));
-
         $staff_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/staff/' . $staff_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
         if (!in_array($path_info, $arr)) {
@@ -24,7 +19,6 @@ if (isset($_POST['edit_staff'])) {
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($staff_image_tmp_name, '../Images/staff/' . $staff_image_name);
-                // $compressedImage = compressImage($staff_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_staffs.php");
                 ob_end_flush();

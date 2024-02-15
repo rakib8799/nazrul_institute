@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <a href="add_library.php" class="btn btn-primary mb-5">গ্রন্থাগার সম্পর্কে তথ্য সংযুক্তি</a>
@@ -14,7 +13,10 @@ $obj = new BanglaNumberToWord();
                     <thead>
                         <tr>
                             <th class="text-center">ক্র.ন.</th>
+                            <th class="text-center">শিরোনাম</th>
                             <th class="text-center">বিস্তারিত</th>
+                            <th class="text-center">ছবি</th>
+                            <th class="text-center">পিডিএফ ফাইল</th>
                             <th class="text-center" style="width: 5vw">সংশোধন</th>
                         </tr>
                     </thead>
@@ -29,10 +31,15 @@ $obj = new BanglaNumberToWord();
                         ?>
                                 <tr>
                                     <td><?php echo $obj->engToBn($serial_no) ?></td>
+                                    <td><?php echo $title; ?></td>
                                     <td><?php echo $details; ?></td>
+                                    <td><img src="../Images/library/<?php echo $image ?>" width='50px' height='50px'></td>
+                                    <td>
+                                        <a href="../Files/library/pdf_file/<?php echo $pdf_file ?>"><?php echo $pdf_file ?></a>
+                                    </td>
                                     <td>
                                         <a href="edit_library.php?library_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="delete_library.php?id=<?php echo $id ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>
+                                        <a href="delete_library.php?id=<?php echo $id ?>&&image=<?php echo $image; ?>&&pdf_file=<?php echo $pdf_file; ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>
                                     </td>
                                 </tr>
                         <?php

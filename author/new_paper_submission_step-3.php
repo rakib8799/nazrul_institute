@@ -1,5 +1,4 @@
 <?php include('author_header.php') ?>
-<link rel="stylesheet" href="../style.css">
 
 <?php
 if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
@@ -16,7 +15,6 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         $_SESSION['researcher_extraExp'] = $researcher_extraExp;
         $_SESSION['researcher_sixMonthTotalExp'] = $researcher_sixMonthTotalExp;
         $_SESSION['long_desc8'] = $long_desc8;
-        $_SESSION['researcher_final_report_file'] = 'N/A';
 
         header("location: paper_submit.php");
         ob_end_flush();
@@ -26,7 +24,7 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         <!-- <h3 class="text-center secondaryColor fw-bold">নতুন প্রকল্প সাবমিশন করুন</h3> -->
         <div class="col">
             <div class="card pt-5 pb-4 shadow mb-5 px-md-5 px-3 bg-body rounded">
-                <form action="" method="POST" enctype="multipart/form-data" onsubmit="return confirmPaper()">
+                <form action="" method="POST" onsubmit="return confirmPaper()">
                     <h6><b>ইন্সটিটিউট থেকে চাহিত আর্থিক সহায়তার খাতওয়ারী বিবরণঃ ৫০০০০ টাকা (খাতওয়ারী বাজেটের বিবরণ নিম্নে দেওয়া হলো)</b><span class="text-danger"> *</span></h6>
                     <div class="mt-2 ms-5">
                         <label for="researcher_salaryExp">গবেষকের সম্মানী<span class="text-danger"> *</span></label>
@@ -128,7 +126,6 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         $_SESSION['advisor_economicHelping_money'] = $advisor_economicHelping_money;
         $_SESSION['advisor_economicHelping_finishingDate'] = $advisor_economicHelping_finishingDate;
         $_SESSION['long_desc10'] = $long_desc10;
-        $_SESSION['advisor_final_report_file'] = 'N/A';
 
         header("location: paper_submit.php");
         ob_end_flush();
@@ -138,7 +135,7 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         <!-- <h3 class="text-center secondaryColor fw-bold">নতুন প্রকল্প সাবমিশন করুন</h3> -->
         <div class="col">
             <div class="card pt-5 pb-4 shadow mb-5 px-md-5 px-3 bg-body rounded">
-                <form action="" method="POST" enctype="multipart/form-data" onsubmit="return confirmPaper()">
+                <form action="" method="POST" onsubmit="return confirmPaper()">
                     <h6><b>ইন্সটিটিউট থেকে চাহিত আর্থিক সহায়তার খাতওয়ারী বিবরণঃ ৭০০০০ টাকা (খাতওয়ারী বাজেটের বিবরণ নিম্নে দেওয়া হলো)</b><span class="text-danger"> *</span></h6>
                     <div class="mt-2 ms-5">
                         <label for="advisor_project_salaryExp">প্রকল্প পরিচালকের সম্মানী<span class="text-danger"> *</span></label>

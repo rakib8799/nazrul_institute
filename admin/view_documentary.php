@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 
 <div class="container-fluid mt-5">
@@ -43,11 +42,6 @@ $obj = new BanglaNumberToWord();
                                         <a href="edit_documentary.php?documentary_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="delete_documentary.php?id=<?php echo $id ?>&&image=<?php echo $image; ?>&&pdf_file=<?php echo $pdf_file; ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>
                                     </td>
-
-                                    <!-- <td>
-                                        <a href="edit_documentary.php?documentary_id=<?php echo $id ?>" class="fs-3"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="delete_documentary.php?id=<?php echo $id ?>&&image=<?php echo $image; ?>" class="ms-md-3 ms-2 fs-3" onclick="return confirmSubmission()"><i class="fa-solid fa-trash"></i></a>
-                                    </td> -->
                                 </tr>
                         <?php
                                 $serial_no++;

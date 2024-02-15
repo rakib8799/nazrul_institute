@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="jkkniu nazrul institute, nazrul institute, nazrul university nazrul institute, Jatiya Kabi Kazi Nazrul Islam University Nazrul Institute, নজরুল ইন্সটিটিউট, জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় নজরুল ইন্সটিটিউট" />
     <meta name="description" content="National poet Kazi Nazrul Islam is a symbol of the spirit of the nation. His works have enriched Bengali literature and our lives.'Jatiya Kabi Kazi Nazrul Islam University' was established in 2006 in Nazrul memorial, Trishal. This university is conducting educational programs through 24 departments of 6 faculties and one institute.
     'Institute of Nazrul Studies' was established in 2014 in Jatiya Kabi Kazi Nazrul Islam University to conduct research and academic activities on Nazrul life, literature, and music. 
     নজরুল জীবন, সাহিত্য ও সংগীত নিয়ে গবেষণা এবং একাডেমিক কার্যক্রম পরিচালনায় জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয়ে ২০১৪ সালে প্রতিষ্ঠিত হয়েছে 'ইন্সটিটিউট অব নজরুল স্টাডিজ'।" />

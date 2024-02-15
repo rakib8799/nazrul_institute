@@ -4,7 +4,10 @@
 if (isset($_POST['add_nazrul_scholarship'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `nazrul_scholarship`(`faculty`,`scholarship`) VALUES('$faculty','$scholarship')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `nazrul_scholarship`(`faculty`,`scholarship`,`created_at`) VALUES('$faculty','$scholarship','$current_time')";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_nazrul_scholarship.php");

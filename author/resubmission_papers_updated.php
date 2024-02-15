@@ -68,11 +68,11 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                                         <td><?php echo $researcher_projectResultForDegree; ?></td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
+                                            <a href="../Files/project_submission_student/pdf_file/proposal/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
+                                            <a href="../Files/project_submission_student/pdf_file/report/<?php echo $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
                                         </td>
                                         <td><?php echo $created_at; ?></td>
                                     </tr>
@@ -154,11 +154,11 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                                         <td><?php echo $advisor_projectResultForDegree; ?></td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
+                                            <a href="../Files/project_submission_teacher/pdf_file/proposal/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
+                                            <a href="../Files/project_submission_teacher/pdf_file/report/<?php echo $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
                                         </td>
                                         <td><?php echo $created_at; ?></td>
                                     </tr>

@@ -25,8 +25,14 @@
 
                                 <div class="card-body">
 
-                                    <h5 class="card-title primary_color" style="height: 6vh;"><?php echo $speech_name; ?></h5>
+                                    <h5 class="card-title fw-bold fs-5 text-center" style="height: 6vh;"><?php echo $speech_name; ?></h5>
                                     <p class="card-text" style="height: 3vh;"><?php echo $speaker_name; ?></p>
+                                    <a href="<?php if (isset($pdf_file) && $pdf_file !== "") { ?>./Files/speech/pdf_file/<?php echo $pdf_file;
+                                                                                                                        } else {
+                                                                                                                            ?>
+speech.php                                                                                                                <?php
+                                                                                                                        } ?>" class="btn btn-primary" <?php if ($pdf_file === "") {
+                                                                                                                                                        ?> onclick="return confirm_download()" <?php                                                              } ?>>ডাউনলোড</a>
                                 </div>
                             </div>
                         </div>
@@ -38,6 +44,15 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function confirm_download() {
+            // alert(" ফাইল এখনো আপলোড করা হয়নি");
+            // window.location.reload();
+            if (confirm("ফাইল এখনো আপলোড করা হয়নি")) window.location.reload();
+            else window.location.reload();
+        }
+    </script>
 
 
     <footer data-aos="fade-up">

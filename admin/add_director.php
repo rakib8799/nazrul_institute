@@ -1,29 +1,27 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['add_director'])) {
     extract($_POST);
+
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
 
     if (isset($_FILES['image']['name'])) {
         $director_image_name = $_FILES['image']['name'];
         $director_image_tmp_name = $_FILES['image']['tmp_name'];
         $path_info = strtolower(pathinfo($director_image_name, PATHINFO_EXTENSION));
         $director_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/director/' . $director_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
         if (!in_array($path_info, $arr)) {
             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
         } else {
-            $insert_sql = "INSERT INTO `director`(`name`,`designation`,`duration`,`image`) VALUES('$name','$designation','$duration','$director_image_name')";
+            $insert_sql = "INSERT INTO `director`(`name`,`designation`,`duration`,`image`,`created_at`) VALUES('$name','$designation','$duration','$director_image_name','$current_time')";
 
             $run_insert_qry = mysqli_query($conn, $insert_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($director_image_tmp_name, '../Images/director/' . $director_image_name);
-                // $compressedImage = compressImage($director_image_tmp_name, $imageUploadPath, 75);
-
 
                 header("location: view_directors.php");
                 ob_end_flush();
@@ -63,13 +61,6 @@ if (isset($_POST['add_director'])) {
                     ?>
                 </select>
             </div>
-            <!-- <div class="mt-3">
-                <label for="designation">পদবি</label>
-                <select name="designation" id="designation" class="form-control" required>
-                    <option value="">পদবি নির্বাচন করুন</option>
-                    <option value="পরিচালক (দায়িত্বপ্রাপ্ত)">পরিচালক (দায়িত্বপ্রাপ্ত)</option>
-                </select>
-            </div> -->
             <div class="mt-3">
                 <label for="duration">মেয়াদকাল</label>
                 <input type="text" name="duration" id="duration" class="form-control" placeholder="পরিচালকের মেয়াদকাল লিখুন" required>

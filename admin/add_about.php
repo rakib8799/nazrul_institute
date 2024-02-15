@@ -4,7 +4,10 @@
 if (isset($_POST['add_about'])) {
     extract($_POST);
 
-    $insert_sql = "INSERT INTO `about`(`title_en`,`details_en`,`title_bd`,`details_bd`) VALUES('$title_en','$long_desc1','$title_bd','$long_desc2')";
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
+    $insert_sql = "INSERT INTO `about`(`title_en`,`details_en`,`title_bd`,`details_bd`,`created_at`) VALUES('$title_en','$long_desc1','$title_bd','$long_desc2','$current_time')";
     $run_insert_qry = mysqli_query($conn, $insert_sql);
     if ($run_insert_qry) {
         header("location: view_about.php");

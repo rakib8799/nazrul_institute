@@ -1,6 +1,4 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
-
 
 <?php
 if (isset($_POST['edit_syllabus'])) {
@@ -8,12 +6,8 @@ if (isset($_POST['edit_syllabus'])) {
     if (!empty($_FILES['image']['name'])) {
         $syllabus_image_name = $_FILES['image']['name'];
         $syllabus_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($syllabus_image_name, PATHINFO_EXTENSION));
-
         $syllabus_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/syllabus/' . $syllabus_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
 
@@ -22,11 +16,10 @@ if (isset($_POST['edit_syllabus'])) {
         } else {
             unlink('../Images/syllabus/' . $current_image);
 
-            $update_sql = "UPDATE `syllabus` SET `title`='$title1',`image`='$syllabus_image_name' WHERE id='$syllabus_id'";
+            $update_sql = "UPDATE `syllabus` SET `title`='$title',`image`='$syllabus_image_name' WHERE id='$syllabus_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($syllabus_image_tmp_name, '../Images/syllabus/' . $syllabus_image_name);
-                // $compressedImage = compressImage($syllabus_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_syllabus.php");
                 ob_end_flush();
@@ -36,30 +29,19 @@ if (isset($_POST['edit_syllabus'])) {
         }
     } else {
         if (!empty($_FILES['pdf_file']['name'])) {
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
             if (!in_array($path_info3, $arr3)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
-            }
-            // else if (!in_array($path_info4, $arr4)) {
-            //     echo "<p class='text-danger text-bold text-center fs-5 mt-3'>File must be in doc or docx format</p>";
-            // }
-            else {
-                // unlink('../Files/syllabus/doc_file/' . $current_doc_file);
+            } else {
                 unlink('../Files/syllabus/pdf_file/' . $current_pdf_file);
-                $update_sql = "UPDATE `syllabus` SET `title`='$title1',`pdf_file`='$pdf_file_name' WHERE id='$syllabus_id'";
+                $update_sql = "UPDATE `syllabus` SET `title`='$title',`pdf_file`='$pdf_file_name' WHERE id='$syllabus_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
-                    // move_uploaded_file($doc_file_tmp_name, '../Files/syllabus/doc_file/' . $doc_file_name);
                     move_uploaded_file($pdf_file_tmp_name, '../Files/syllabus/pdf_file/' . $pdf_file_name);
                     header("location: view_syllabus.php");
                     ob_end_flush();
@@ -70,26 +52,17 @@ if (isset($_POST['edit_syllabus'])) {
         } else if (!empty($_FILES['image']['name'] && $_FILES['pdf_file']['name'])) {
             $syllabus_image_name = $_FILES['image']['name'];
             $syllabus_image_tmp_name = $_FILES['image']['tmp_name'];
-
             $path_info = strtolower(pathinfo($syllabus_image_name, PATHINFO_EXTENSION));
-
             $syllabus_image_name = uniqid() . ".$path_info";
-            // $imageUploadPath = '../Images/syllabus/' . $syllabus_image_name;
-
 
             $arr = array("jpg", "png", "jpeg");
 
-            // $doc_file_name = $_FILES['doc_file']['name'];
-            // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-            // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-            // $doc_file_name = uniqid() . ".$path_info4";
             $pdf_file_name = uniqid() . ".$path_info3";
 
             $arr3 = array("pdf");
-            // $arr4 = array("doc", "docx");
 
             if (!in_array($path_info, $arr)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
@@ -99,12 +72,10 @@ if (isset($_POST['edit_syllabus'])) {
                 unlink('../Images/syllabus/' . $current_image);
                 unlink('../Files/syllabus/pdf_file/' . $current_pdf_file);
 
-                $update_sql = "UPDATE `syllabus` SET `title`='$title1',`image`='$syllabus_image_name',`pdf_file`='$pdf_file_name' WHERE id='$syllabus_id'";
+                $update_sql = "UPDATE `syllabus` SET `title`='$title',`image`='$syllabus_image_name',`pdf_file`='$pdf_file_name' WHERE id='$syllabus_id'";
                 $run_insert_qry = mysqli_query($conn, $update_sql);
                 if ($run_insert_qry) {
                     move_uploaded_file($syllabus_image_tmp_name, '../Images/syllabus/' . $syllabus_image_name);
-                    // $compressedImage = compressImage($syllabus_image_tmp_name, $imageUploadPath, 75);
-
                     move_uploaded_file($pdf_file_tmp_name, '../Files/syllabus/pdf_file/' . $pdf_file_name);
                     header("location: view_syllabus.php");
                     ob_end_flush();
@@ -113,7 +84,7 @@ if (isset($_POST['edit_syllabus'])) {
                 }
             }
         } else {
-            $update_sql = "UPDATE `syllabus` SET `title`='$title1' WHERE id='$syllabus_id'";
+            $update_sql = "UPDATE `syllabus` SET `title`='$title' WHERE id='$syllabus_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 header("location: view_syllabus.php");
@@ -123,48 +94,6 @@ if (isset($_POST['edit_syllabus'])) {
             }
         }
     }
-
-
-
-    // if (!empty($_FILES['image']['name'])) {
-    //     $syllabus_image_name = $_FILES['image']['name'];
-    //     $syllabus_image_tmp_name = $_FILES['image']['tmp_name'];
-
-    //     $path_info = strtolower(pathinfo($syllabus_image_name, PATHINFO_EXTENSION));
-
-    //     $syllabus_image_name = uniqid() . ".$path_info";
-    //     // $imageUploadPath = '../Images/syllabus/' . $syllabus_image_name;
-
-
-    //     $arr = array("jpg", "png", "jpeg");
-
-    //     if (!in_array($path_info, $arr)) {
-    //         echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
-    //     } else {
-    //         unlink('../Images/syllabus/' . $current_image);
-
-    //         $update_sql = "UPDATE `syllabus` SET `title`='$title1',`image`='$syllabus_image_name' WHERE id='$syllabus_id'";
-    //         $run_insert_qry = mysqli_query($conn, $update_sql);
-    //         if ($run_insert_qry) {
-    //             move_uploaded_file($syllabus_image_tmp_name, '../Images/syllabus/' . $syllabus_image_name);
-    //             // $compressedImage = compressImage($syllabus_image_tmp_name, $imageUploadPath, 75);
-
-    //             header("location: view_syllabus.php");
-    //             ob_end_flush();
-    //         } else {
-    //             echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
-    //         }
-    //     }
-    // } else {
-    //     $update_sql = "UPDATE `syllabus` SET `title`='$title1' WHERE id='$syllabus_id'";
-    //     $run_insert_qry = mysqli_query($conn, $update_sql);
-    //     if ($run_insert_qry) {
-    //         header("location: view_syllabus.php");
-    //         ob_end_flush();
-    //     } else {
-    //         echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
-    //     }
-    // }
 }
 ?>
 
@@ -184,8 +113,8 @@ if (isset($_GET['syllabus_id'])) {
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="syllabus_id" value="<?php echo $id; ?>" />
                     <div class="mt-3">
-                        <label for="title1">শিরোনাম</label>
-                        <input type="text" name="title1" id="title1" class="form-control" placeholder="সিলেবাসের শিরোনাম লিখুন" value="<?php echo $title; ?>">
+                        <label for="title">শিরোনাম</label>
+                        <input type="text" name="title" id="title" class="form-control" placeholder="সিলেবাসের শিরোনাম লিখুন" value="<?php echo $title; ?>">
                     </div>
 
                     <div class="mt-3">

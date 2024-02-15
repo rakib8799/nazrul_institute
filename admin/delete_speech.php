@@ -1,13 +1,16 @@
 <?php include("admin_header.php") ?>
+
 <?php
-if (isset($_GET['id'], $_GET['image'])) {
+if (isset($_GET['id'], $_GET['image'], $_GET['pdf_file'])) {
     $id = $_GET['id'];
     $image = $_GET['image'];
+    $pdf_file = $_GET['pdf_file'];
     $deleteData = "DELETE FROM speech WHERE id = $id";
     $result = mysqli_query($conn, $deleteData);
     if ($result) {
-        // echo "<p class='text-danger text-bold text-center fs-5 mt-3'>Deleted successfully</p>";
         unlink('../Images/speech/' . $image);
+        unlink('../Files/speech/pdf_file/' . $pdf_file);
+
         header("Location: view_speech.php");
         ob_end_flush();
     } else {
@@ -15,4 +18,5 @@ if (isset($_GET['id'], $_GET['image'])) {
     }
 }
 ?>
+
 <?php include("admin_footer.php") ?>

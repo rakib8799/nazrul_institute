@@ -34,16 +34,19 @@ $obj = new BanglaNumberToWord();
          <div class="card shadow p-3 mb-5" style="border-radius: 8px; height: 15vh;">
             <h5 style="height: 70%;"><i class="fa-solid fa-check-double m-1"></i> নতুন সাবমিট করা প্রকল্পগুলো</h5>
             <?php
-            if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
+            if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESSION['author_role'] === 'Student') {
+               $researcher_notice_id = $_SESSION['researcher_notice_id'];
                // select paper information
-               $select_from_new_paper = "SELECT * FROM `project_submission_student` WHERE `researcher_author_id` = '$_SESSION[author_id]' AND `paper_status` = '1'";
+               $select_from_new_paper = "SELECT * FROM `project_submission_student` WHERE `researcher_author_id` = '$_SESSION[author_id]' AND `paper_status` = '1' AND `researcher_notice_id`='$researcher_notice_id'";
                $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                $num_new_paper = mysqli_num_rows($run_select_from_new_paper);
             ?>
                <a href="new_papers.php" class="home_anker">সর্বমোট প্রকল্প: <?php echo $obj->engToBn($num_new_paper) ?></a>
             <?php
-            } else {
-               $select_from_new_paper = "SELECT * FROM `project_submission_teacher` WHERE `advisor_author_id` = '$_SESSION[author_id]' AND `paper_status` = '1'";
+            } else if (isset($_SESSION['author_role'], $_SESSION['advisor_notice_id']) && $_SESSION['author_role'] === 'Teacher') {
+               $advisor_notice_id = $_SESSION['advisor_notice_id'];
+
+               $select_from_new_paper = "SELECT * FROM `project_submission_teacher` WHERE `advisor_author_id` = '$_SESSION[author_id]' AND `paper_status` = '1'  AND `advisor_notice_id`='$advisor_notice_id'";
                $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                $num_new_paper = mysqli_num_rows($run_select_from_new_paper);
             ?>
@@ -53,7 +56,7 @@ $obj = new BanglaNumberToWord();
             ?>
          </div>
       </div>
-      <div class="col-md-3 col-12 mt-2">
+      <!-- <div class="col-md-3 col-12 mt-2">
          <div class="card shadow p-3 mb-5" style="border-radius: 8px; height: 15vh;">
             <h5 style="height: 70%;"><i class="fa-solid fa-check-double m-1"></i> ত্রুটিযুক্ত প্রকল্পগুলো</h5>
             <?php
@@ -98,7 +101,7 @@ $obj = new BanglaNumberToWord();
             }
             ?>
          </div>
-      </div>
+      </div> -->
 
       <!-- <div class="col-md-3">
          <div class="card shadow p-3 mb-5">

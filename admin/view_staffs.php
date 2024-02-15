@@ -2,7 +2,6 @@
 <?php include("numberToWord/BanglaNumberToWord.php") ?>
 <?php
 $obj = new BanglaNumberToWord();
-// echo $obj->engToBn(5207.56);
 ?>
 <div class="container-fluid mt-5">
     <a href="add_staff.php" class="btn btn-primary mb-5">কর্মরত কর্মচারীবৃন্দের তথ্য সংযুক্তি</a>

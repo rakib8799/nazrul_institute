@@ -1,74 +1,100 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['edit_notice'])) {
     extract($_POST);
 
-    if (!empty($_FILES['pdf_file']['name'])) {
-        // $doc_file_name = $_FILES['doc_file']['name'];
-        // $doc_file_tmp_name = $_FILES['doc_file']['tmp_name'];
-        $pdf_file_name = $_FILES['pdf_file']['name'];
-        $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
-        // $path_info4 = strtolower(pathinfo($doc_file_name, PATHINFO_EXTENSION));
-        $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
-        // $doc_file_name = uniqid() . ".$path_info4";
-        $pdf_file_name = uniqid() . ".$path_info3";
+    if (!empty($_FILES['image']['name']) && empty($_FILES['pdf_file']['name'])) {
+        $notice_image_name = $_FILES['image']['name'];
+        $notices_image_tmp_name = $_FILES['image']['tmp_name'];
+        $path_info = strtolower(pathinfo($notice_image_name, PATHINFO_EXTENSION));
+        $notice_image_name = uniqid() . ".$path_info";
 
-        $arr3 = array("pdf");
-        // $arr4 = array("doc", "docx");
-        if (!in_array($path_info3, $arr3)) {
-            echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
-        }
-        // else if (!in_array($path_info4, $arr4)) {
-        //     echo "<p class='text-danger text-bold text-center fs-5 mt-3'>File must be in doc or docx format</p>";
-        // }
-        else {
-            // unlink('../Files/notices/doc_file/' . $current_doc_file);
-            unlink('../Files/notices/pdf_file/' . $current_pdf_file);
-            $update_sql = "UPDATE `notices` SET `title`='$long_desc1', `pdf_file`='$pdf_file_name',`submission_date`='$submission_date' WHERE id='$notice_id'";
+
+        $arr = array("jpg", "png", "jpeg");
+
+        if (!in_array($path_info, $arr)) {
+            echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
+        } else {
+            unlink('../Images/notices/' . $current_image);
+
+            $update_sql = "UPDATE `notices` SET `title`='$title',`details`='$long_desc1', `image`='$notice_image_name',`submission_date`='$submission_date' WHERE id='$notice_id'";
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
-                // move_uploaded_file($doc_file_tmp_name, '../Files/notices/doc_file/' . $doc_file_name);
-                move_uploaded_file($pdf_file_tmp_name, '../Files/notices/pdf_file/' . $pdf_file_name);
+                move_uploaded_file($notices_image_tmp_name, '../Images/notices/' . $notice_image_name);
+
                 header("location: view_notices.php");
                 ob_end_flush();
             } else {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
             }
         }
-    }
-    // else if (!empty($_FILES['doc_file'])) {
-    //     unlink('../Files/notices/doc_file/' . $current_doc_file);
-    //     $update_sql = "UPDATE `notices` SET `title`='$long_desc1',`doc_file`='$doc_file_name' WHERE id='$notice_id'";
-    //     $run_insert_qry = mysqli_query($conn, $update_sql);
-    //     if ($run_insert_qry) {
-    //         move_uploaded_file($doc_file_tmp_name, '../Files/notices/doc_file/' . $doc_file_name);
-    //         header("location: view_notices.php");
-    //         ob_end_flush();
-    //     } else {
-    //         echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
-    //     }
-    // } else if (!empty($_FILES['pdf_file'])) {
-    //     unlink('../Files/notices/pdf_file/' . $current_pdf_file);
-    //     $update_sql = "UPDATE `notices` SET `title`='$long_desc1',`pdf_file`='$pdf_file_name' WHERE id='$notice_id'";
-    //     $run_insert_qry = mysqli_query($conn, $update_sql);
-    //     if ($run_insert_qry) {
-    //         move_uploaded_file($pdf_file_tmp_name, '../Files/notices/pdf_file/' . $pdf_file_name);
-    //         header("location: view_notices.php");
-    //         ob_end_flush();
-    //     } else {
-    //         echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
-    //     }
-    // } 
-    else {
-        $update_sql = "UPDATE `notices` SET `title`='$long_desc1',`submission_date`='$submission_date' WHERE id='$notice_id'";
-        $run_insert_qry = mysqli_query($conn, $update_sql);
-        if ($run_insert_qry) {
-            header("location: view_notices.php");
-            ob_end_flush();
+    } else {
+        if (!empty($_FILES['pdf_file']['name']) && empty($_FILES['image']['name'])) {
+            $pdf_file_name = $_FILES['pdf_file']['name'];
+            $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
+            $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
+            $pdf_file_name = uniqid() . ".$path_info3";
+
+            $arr3 = array("pdf");
+            if (!in_array($path_info3, $arr3)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
+            } else {
+                unlink('../Files/notices/pdf_file/' . $current_pdf_file);
+
+                $update_sql = "UPDATE `notices` SET `title`='$title',`details`='$long_desc1', `pdf_file`='$pdf_file_name', `submission_date`='$submission_date' WHERE id='$notice_id'";
+                $run_insert_qry = mysqli_query($conn, $update_sql);
+                if ($run_insert_qry) {
+                    move_uploaded_file($pdf_file_tmp_name, '../Files/notices/pdf_file/' . $pdf_file_name);
+                    header("location: view_notices.php");
+                    ob_end_flush();
+                } else {
+                    echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+                }
+            }
+        } else if (!empty($_FILES['image']['name'] && $_FILES['pdf_file']['name'])) {
+            $notice_image_name = $_FILES['image']['name'];
+            $notices_image_tmp_name = $_FILES['image']['tmp_name'];
+            $path_info = strtolower(pathinfo($notice_image_name, PATHINFO_EXTENSION));
+            $notice_image_name = uniqid() . ".$path_info";
+
+            $arr = array("jpg", "png", "jpeg");
+
+            $pdf_file_name = $_FILES['pdf_file']['name'];
+            $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
+            $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));
+            $pdf_file_name = uniqid() . ".$path_info3";
+
+            $arr3 = array("pdf");
+
+            if (!in_array($path_info, $arr)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
+            } else if (!in_array($path_info3, $arr3)) {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ফাইলের ফরম্যাট (PDF) হতে হবে</p>";
+            } else {
+                unlink('../Images/notices/' . $current_image);
+                unlink('../Files/notices/pdf_file/' . $current_pdf_file);
+
+                $update_sql = "UPDATE `notices` SET `title`='$title',`details`='$long_desc1', `image`='$notice_image_name', `pdf_file`='$pdf_file_name', `submission_date`='$submission_date' WHERE id='$notice_id'";
+                $run_insert_qry = mysqli_query($conn, $update_sql);
+                if ($run_insert_qry) {
+                    move_uploaded_file($notices_image_tmp_name, '../Images/notices/' . $notice_image_name);
+                    move_uploaded_file($pdf_file_tmp_name, '../Files/notices/pdf_file/' . $pdf_file_name);
+                    header("location: view_notices.php");
+                    ob_end_flush();
+                } else {
+                    echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+                }
+            }
         } else {
-            echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+            $update_sql = "UPDATE `notices` SET `title`='$title',`details`='$long_desc1',`submission_date`='$submission_date' WHERE id='$notice_id'";
+            $run_insert_qry = mysqli_query($conn, $update_sql);
+            if ($run_insert_qry) {
+                header("location: view_notices.php");
+                ob_end_flush();
+            } else {
+                echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য সংশোধন হয়নি</p>";
+            }
         }
     }
 }
@@ -89,20 +115,23 @@ if (isset($_GET['notice_id'])) {
                 <h2 class="text-capitalize text-center">নোটিশের তথ্য সংশোধন</h2>
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="notice_id" value="<?php echo $id; ?>" />
-
                     <div class="mt-3">
-                        <label for="long_desc1">শিরোনাম</label>
-                        <textarea name="long_desc1" class="long_desc" id="long_desc1"><?php echo $title ?></textarea>
-                    </div>
-                    <!-- <div class="mt-3">
-                        <label>পূর্ববর্তী ডক ফাইল</label><br>
-                        <a href="../Files/notice/<?php echo $doc_file ?>"><?php echo $doc_file ?></a>
-                        <input type="hidden" name="current_doc_file" value="<?php echo $doc_file; ?>" />
+                        <label for="title">শিরোনাম</label>
+                        <input type="text" name="title" id="title" class="form-control" value="<?php echo $title ?>" placeholder="শিরোনাম লিখুন">
                     </div>
                     <div class="mt-3">
-                        <label for="doc_file">নতুন ডক ফাইল সংযুক্তি</label>
-                        <input type="file" name="doc_file" id="doc_file" class="form-control">
-                    </div> -->
+                        <label for="long_desc1">বিস্তারিত</label>
+                        <textarea name="long_desc1" class="long_desc" id="long_desc1"><?php echo $details ?></textarea>
+                    </div>
+                    <div class="mt-3">
+                        <label>পূর্ববর্তী ছবি</label><br>
+                        <img src="../Images/notices/<?php echo $image ?>" width="100px" alt="notices_image">
+                        <input type="hidden" name="current_image" value="<?php echo $image; ?>" />
+                    </div>
+                    <div class="mt-3">
+                        <label for="image">নতুন ছবি সংযুক্তি</label>
+                        <input type="file" name="image" id="image" class="form-control">
+                    </div>
                     <div class="mt-3">
                         <label>পূর্ববর্তী পিডিএফ ফাইল</label><br>
                         <a href="../Files/notices/pdf_file/<?php echo $pdf_file ?>"><?php echo $pdf_file ?></a>

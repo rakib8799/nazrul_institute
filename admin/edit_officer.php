@@ -1,5 +1,4 @@
 <?php include("admin_header.php") ?>
-<?php include("./functions/compress_image.php") ?>
 
 <?php
 if (isset($_POST['edit_officer'])) {
@@ -8,12 +7,8 @@ if (isset($_POST['edit_officer'])) {
     if (!empty($_FILES['image']['name'])) {
         $officer_image_name = $_FILES['image']['name'];
         $officer_image_tmp_name = $_FILES['image']['tmp_name'];
-
         $path_info = strtolower(pathinfo($officer_image_name, PATHINFO_EXTENSION));
-
         $officer_image_name = uniqid() . ".$path_info";
-        // $imageUploadPath = '../Images/officer/' . $officer_image_name;
-
 
         $arr = array("jpg", "png", "jpeg");
         if (!in_array($path_info, $arr)) {
@@ -24,7 +19,6 @@ if (isset($_POST['edit_officer'])) {
             $run_insert_qry = mysqli_query($conn, $update_sql);
             if ($run_insert_qry) {
                 move_uploaded_file($officer_image_tmp_name, '../Images/officer/' . $officer_image_name);
-                // $compressedImage = compressImage($officer_image_tmp_name, $imageUploadPath, 75);
 
                 header("location: view_officers.php");
                 ob_end_flush();

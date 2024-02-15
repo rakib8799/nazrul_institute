@@ -32,13 +32,17 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'educational_activities.php' ? 'active' : ''; ?>" href="educational_activities.php">শিক্ষা</a></li>
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'research_activities.php' ? 'active' : ''; ?>" href="research_activities.php">গবেষণা</a></li>
+
+                        <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'faculty_scholarship.php' ? 'active' : ''; ?>" href="faculty_scholarship.php">অনুষদ অনুসারে বৃত্তি</a></li>
+                        <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'student_scholarship.php' ? 'active' : ''; ?>" href="student_scholarship.php">বৃত্তিপ্রাপ্ত শিক্ষার্থী</a></li>
+
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'speech.php' ? 'active' : ''; ?>" href="speech.php">বক্তৃতামালা</a></li>
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'workshop.php' ? 'active' : ''; ?>" href="workshop.php">কর্মশালা</a></li>
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'training.php' ? 'active' : ''; ?>" href="training.php">প্রশিক্ষণ</a></li>
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'art_camp.php' ? 'active' : ''; ?>" href="art_camp.php">আর্ট ক্যাম্প</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         বৃত্তি
                     </a>
@@ -46,7 +50,7 @@
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'faculty_scholarship.php' ? 'active' : ''; ?>" href="faculty_scholarship.php">অনুষদ অনুসারে</a></li>
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'student_scholarship.php' ? 'active' : ''; ?>" href="student_scholarship.php">বৃত্তিপ্রাপ্ত শিক্ষার্থী</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         সেমিনার ও কনফারেন্স
@@ -69,11 +73,8 @@
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'report.php' ? 'active' : ''; ?>" href="report.php">বার্ষিক প্রতিবেদন</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                <li class="nav-item">
-                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>" href="login.php">লগইন</a>
-                </li>
-                </li>
+
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         অন্যান্য
@@ -82,13 +83,20 @@
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'memorandum.php' ? 'active' : ''; ?>" href="memorandum.php">দ্বি-পাক্ষিক সমঝোতা চুক্তি</a></li>
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'library.php' ? 'active' : ''; ?>" href="library.php">গ্রন্থাগার</a></li>
                         <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'infrastructure.php' ? 'active' : ''; ?>" href="infrastructure.php">অবকাঠামো</a></li>
-                        <li><a class="dropdown-item <?php echo basename($_SERVER['PHP_SELF']) == 'notice_board.php' ? 'active' : ''; ?>" href="notice_board.php">নোটিশ বোর্ড</a></li>
                     </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'notice_board.php' ? 'active' : ''; ?>" href="notice_board.php">নোটিশ বোর্ড</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>" href="login.php">লগইন</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'contact_us.php' ? 'active' : ''; ?>" href="contact_us.php">যোগাযোগ</a>
                 </li>
+
             </ul>
         </div>
     </div>

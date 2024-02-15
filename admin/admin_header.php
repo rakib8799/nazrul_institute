@@ -170,7 +170,7 @@ if (!isset($_SESSION['admin_id'])) {
                 <!-- </a> -->
               </li>
               <li class="menu-item">
-                <a href="view_designation.php" class="menu-link">
+                <a href="view_designations.php" class="menu-link">
                   <div data-i18n="View Designation">পদবি</div>
                 </a>
               </li>
@@ -334,6 +334,11 @@ if (!isset($_SESSION['admin_id'])) {
               <li class="menu-item">
                 <a href="view_notices.php" class="menu-link">
                   <div data-i18n="View Notice">নোটিশ</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="view_news.php" class="menu-link">
+                  <div data-i18n="View News">সংবাদ</div>
                 </a>
               </li>
             </ul>
