@@ -7,7 +7,7 @@ $obj = new BanglaNumberToWord();
 // echo $obj->engToBn(5207.56);
 ?>
 <?php
-if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESSION['author_role'] === 'Student') {
+if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION['author_email']) && $_SESSION['author_role'] === 'Student') {
 ?>
     <div class="container-fluid mt-5">
         <h3 class="text-center secondaryColor fw-bold">প্রকল্পগুলোর সম্পর্কে বিস্তারিত দেখুন</h3>
@@ -36,9 +36,9 @@ if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESS
                         <tbody>
                             <?php
                             $researcher_author_id = $_SESSION["author_id"];
-                            $researcher_notice_id = $_SESSION['researcher_notice_id'];
+                            $author_email = $_SESSION['author_email'];
 
-                            $select_from_new_paper = "SELECT * FROM project_submission_student WHERE `researcher_author_id` = '$researcher_author_id' AND `paper_status`='1' AND `researcher_notice_id`='$researcher_notice_id'";
+                            $select_from_new_paper = "SELECT * FROM project_submission_student WHERE `researcher_author_id` = '$researcher_author_id' AND `paper_status`='1' AND `researcher_email`='$author_email'";
                             $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                             $serial_no = 1;
                             if (mysqli_num_rows($run_select_from_new_paper) > 0) {
@@ -48,7 +48,7 @@ if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESS
                                     <tr>
                                         <td><?php echo $obj->engToBn($serial_no) ?></td>
                                         <?php
-                                        // $select_from_new_paper1 = "SELECT * FROM `notices` WHERE id='$researcher_notice_id'";
+                                        // $select_from_new_paper1 = "SELECT * FROM `notices` WHERE id='$author_email'";
                                         // $run_select_from_new_paper1 = mysqli_query($conn, $select_from_new_paper1);
                                         // if (mysqli_num_rows($run_select_from_new_paper1) > 0) {
                                         //     $row1 = mysqli_fetch_assoc($run_select_from_new_paper1);
@@ -109,7 +109,7 @@ if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESS
         </div>
     </div>
 <?php
-} else if (isset($_SESSION['author_role'], $_SESSION['advisor_notice_id']) && $_SESSION['author_role'] === 'Teacher') {
+} else if (isset($_SESSION['author_role'], $_SESSION['author_id'], $_SESSION['author_email']) && $_SESSION['author_role'] === 'Teacher') {
 ?>
     <div class="container-fluid mt-5">
         <h3 class="text-center secondaryColor fw-bold">প্রকল্পগুলোর সম্পর্কে বিস্তারিত দেখুন</h3>
@@ -138,9 +138,9 @@ if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESS
                         <tbody>
                             <?php
                             $advisor_author_id = $_SESSION["author_id"];
-                            $advisor_notice_id = $_SESSION['advisor_notice_id'];
+                            $author_email = $_SESSION['author_email'];
 
-                            $select_from_new_paper = "SELECT * FROM project_submission_teacher WHERE advisor_author_id='$advisor_author_id' AND `paper_status`='1' AND `advisor_notice_id`='$advisor_notice_id'";
+                            $select_from_new_paper = "SELECT * FROM project_submission_teacher WHERE advisor_author_id='$advisor_author_id' AND `paper_status`='1' AND `advisor_email`='$author_email'";
                             $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                             $serial_no = 1;
                             if (mysqli_num_rows($run_select_from_new_paper) > 0) {
@@ -150,7 +150,7 @@ if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESS
                                     <tr>
                                         <td><?php echo $obj->engToBn($serial_no) ?></td>
                                         <?php
-                                        // $select_from_new_paper1 = "SELECT * FROM `notices` WHERE id='$advisor_notice_id'";
+                                        // $select_from_new_paper1 = "SELECT * FROM `notices` WHERE id='$author_email'";
                                         // $run_select_from_new_paper1 = mysqli_query($conn, $select_from_new_paper1);
                                         // if (mysqli_num_rows($run_select_from_new_paper1) > 0) {
                                         //     $row1 = mysqli_fetch_assoc($run_select_from_new_paper1);
@@ -173,7 +173,7 @@ if (isset($_SESSION['author_role'], $_SESSION['researcher_notice_id']) && $_SESS
                                         <td><?php echo $advisor_projectResultForDegree; ?></td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
+                                            <a href="../Files/project_submission_teacher/pdf_file/proposal/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->

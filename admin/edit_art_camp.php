@@ -26,7 +26,7 @@ if (isset($_POST['edit_art_camp'])) {
 
         $imgIndex = 0;
 
-        if (isset($current_image) && !empty($current_image)) {
+        if (!empty($current_image)) {
             while ($imgIndex < count($current_image)) {
                 unlink('../Images/art_camp/' . $current_image[$imgIndex]);
 
@@ -35,9 +35,11 @@ if (isset($_POST['edit_art_camp'])) {
         }
 
         $insertValuesSQL = trim($insertValuesSQL, ',');
+        $images = explode(',', $insertValuesSQL);
+        $json = json_encode($images);
 
 
-        $update_sql = "UPDATE `art_camp` SET `title`='$title',`details`='$long_desc1',`image`='$insertValuesSQL' WHERE id='$art_camp_id'";
+        $update_sql = "UPDATE `art_camp` SET `title`='$title',`details`='$long_desc1',`image`='{$json}' WHERE id='$art_camp_id'";
         $run_insert_qry = mysqli_query($conn, $update_sql);
         if ($run_insert_qry) {
 
@@ -69,7 +71,7 @@ if (isset($_GET['art_camp_id'])) {
         $row = mysqli_fetch_assoc($run_select_from_new_paper);
         extract($row);
         $imgIndex = 0;
-        $images = explode(",", $image);
+        $images = json_decode($image, true);
 ?>
         <div class="container-fluid  mt-5 d-flex justify-content-center">
             <div class="col-md-8 col-12">
@@ -87,20 +89,14 @@ if (isset($_GET['art_camp_id'])) {
                     <div class="mt-3">
                         <label>পূর্ববর্তী ছবি</label><br>
                         <?php
-                        if (count($images) > 1) {
+                        if (isset($images)) {
                             while ($imgIndex < count($images)) {
                         ?>
                                 <input type="hidden" name="current_image[]" value="<?php echo $images[$imgIndex]; ?>" />
-                                <img src="../Images/art_camp/<?php echo $images[$imgIndex] ?>" width="100px" alt="art_camp_image">
-                                <!-- <img src="../Images/art_camp/<?php echo $images[$imgIndex] ?>" width='50px' height='50px'> -->
-                            <?php
+                                <img class="mb-2 ms-2" src="../Images/art_camp/<?php echo $images[$imgIndex]; ?>" alt="<?php echo $images[$imgIndex] ?>" width='100px' height='100px'>
+                        <?php
                                 $imgIndex++;
                             }
-                        } else {
-                            ?>
-                            <input type="hidden" name="current_image" value="<?php echo $image; ?>" />
-                            <img src="../Images/art_camp/<?php echo $image ?>" width='100px'>
-                        <?php
                         }
                         ?>
                     </div>

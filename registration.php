@@ -7,6 +7,10 @@
 <?php
 if (isset($_POST['signup'])) {
     $matched = 0;
+
+    $t = time();
+    $current_time = date("Y-m-d H:i:s", $t);
+
     if (isset($_POST['captcha']) && ($_POST['captcha'] != "")) {
         // Validation: Checking entered captcha code with the generated captcha code
         if (strcmp($_SESSION['captcha'], $_POST['captcha']) != 0) {
@@ -42,7 +46,7 @@ if (isset($_POST['signup'])) {
                     if ($count > 0) {
                         echo "<p class='text-danger fw-bold text-center fs-5 mt-3'>Email Already Exists</p>";
                     } else {
-                        $insert_data = "INSERT INTO `author_information`(`author_name`,`author_email`, `author_contact_no`,`author_password`,`author_role`,`image`,`verification_code`, `email_verified_at`) VALUES ('$name','$email','$contact','$encrypted_password','$role_as',NULL,'$verification_code',NULL)";
+                        $insert_data = "INSERT INTO `author_information`(`author_name`,`author_email`, `author_contact_no`,`author_password`,`author_role`,`image`,`verification_code`, `email_verified_at`) VALUES ('$name','$email','$contact','$encrypted_password','$role_as',NULL,'$verification_code','$current_time')";
                         $insert_query = mysqli_query($conn, $insert_data);
                         if ($insert_query) {
                             // $_SESSION['verification_code'] = $verification_code;

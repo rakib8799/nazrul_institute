@@ -15,7 +15,7 @@ if (isset($_POST['add_publication_book'])) {
 
         $arr = array("jpg", "png", "jpeg");
 
-        if (isset($_FILES['pdf_file']['name']) && !empty($_FILES['pdf_file']['name'])) {
+        if (!empty($_FILES['pdf_file']['name'])) {
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];
             $path_info3 = strtolower(pathinfo($pdf_file_name, PATHINFO_EXTENSION));

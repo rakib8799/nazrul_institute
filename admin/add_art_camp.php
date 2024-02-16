@@ -9,6 +9,7 @@ if (isset($_POST['add_art_camp'])) {
 
     if (isset($_FILES['files']['name'])) {
         $insertValuesSQL = '';
+        $images = [];
 
         foreach ($_FILES['files']['name'] as $key => $val) {
             $art_camp_image_name = $_FILES['files']['name'][$key];
@@ -27,8 +28,11 @@ if (isset($_POST['add_art_camp'])) {
             }
         }
         $insertValuesSQL = trim($insertValuesSQL, ',');
+        $images = explode(',', $insertValuesSQL);
+        // print_r($images);
+        $json = json_encode($images);
 
-        $insert_sql = "INSERT INTO `art_camp`(`title`,`details`,`image`,`created_at`) VALUES('$title','$long_desc1','$insertValuesSQL','$current_time')";
+        $insert_sql = "INSERT INTO `art_camp`(`title`,`details`,`image`,`created_at`) VALUES('$title','$long_desc1','{$json}','$current_time')";
 
         $run_insert_qry = mysqli_query($conn, $insert_sql);
         if ($run_insert_qry) {

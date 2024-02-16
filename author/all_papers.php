@@ -7,7 +7,7 @@ $obj = new BanglaNumberToWord();
 // echo $obj->engToBn(5207.56);
 ?>
 <?php
-if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
+if (isset($_SESSION['author_role'], $_SESSION['author_id']) && $_SESSION['author_role'] === 'Student') {
 ?>
     <div class="container-fluid mt-5">
         <h3 class="text-center secondaryColor fw-bold">প্রকল্পগুলোর সম্পর্কে বিস্তারিত দেখুন</h3>
@@ -70,7 +70,7 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                                         <td><?php echo $researcher_projectResultForDegree; ?></td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
+                                            <a href="../Files/project_submission_student/pdf_file/proposal/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_student/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
@@ -109,7 +109,7 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
         </div>
     </div>
 <?php
-} else {
+} else if (isset($_SESSION['author_role'], $_SESSION['author_id']) && $_SESSION['author_role'] === 'Teacher') {
 ?>
     <div class="container-fluid mt-5">
         <h3 class="text-center secondaryColor fw-bold">প্রকল্পগুলোর সম্পর্কে বিস্তারিত দেখুন</h3>
@@ -171,7 +171,7 @@ if (isset($_SESSION['author_role']) && $_SESSION['author_role'] === 'Student') {
                                         <td><?php echo $advisor_projectResultForDegree; ?></td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->
-                                            <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
+                                            <a href="../Files/project_submission_teacher/pdf_file/proposal/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
                                         </td>
                                         <td>
                                             <!-- <a href="../Files/project_submission_teacher/doc_file/<?php echo $doc_file ?>"><?php echo $doc_file ?></a> -->

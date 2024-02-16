@@ -10,16 +10,14 @@ if (isset($_GET['id'])) {
         $imgIndex = 0;
 
         while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
-            $images = explode(",", $row['image']);
+            $images = json_decode($row['image'], true);
 
-            if (count($images) > 1) {
+            if (isset($images)) {
                 while ($imgIndex < count($images)) {
                     unlink('../Images/art_camp/' . $images[$imgIndex]);
 
                     $imgIndex++;
                 }
-            } else {
-                unlink('../Images/art_camp/' . $image);
             }
         }
 

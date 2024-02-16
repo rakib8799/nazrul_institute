@@ -15,7 +15,7 @@ $obj = new BanglaNumberToWord();
                             <th class="text-center">ক্র.ন.</th>
                             <th class="text-center">শিরোনাম</th>
                             <th class="text-center">বিস্তারিত</th>
-                            <th class="text-center" style="width: 15vw">ছবি</th>
+                            <th class="text-center" style="min-width: 15vw">ছবি</th>
                             <th class="text-center" style="width: 5vw">সংশোধন</th>
                         </tr>
                     </thead>
@@ -25,10 +25,10 @@ $obj = new BanglaNumberToWord();
                         $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
                         $serial_no = 1;
                         if (mysqli_num_rows($run_select_from_new_paper) > 0) {
-                            $imgIndex = 0;
                             while ($row = mysqli_fetch_assoc($run_select_from_new_paper)) {
+                                $imgIndex = 0;
                                 extract($row);
-                                $images = explode(",", $image);
+                                $images = json_decode($image, true);
                         ?>
                                 <tr>
                                     <td><?php echo $obj->engToBn($serial_no) ?></td>
@@ -36,17 +36,13 @@ $obj = new BanglaNumberToWord();
                                     <td><?php echo $details; ?></td>
                                     <td>
                                         <?php
-                                        if (count($images) > 1) {
+                                        if (isset($images)) {
                                             while ($imgIndex < count($images)) {
                                         ?>
-                                                <img src="../Images/art_camp/<?php echo $images[$imgIndex] ?>" width='50px' height='50px'>
-                                            <?php
+                                                <img class="mb-2" src="../Images/art_camp/<?php echo $images[$imgIndex]; ?>" alt="<?php echo $images[$imgIndex] ?>" width='50px' height='50px'>
+                                        <?php
                                                 $imgIndex++;
                                             }
-                                        } else {
-                                            ?>
-                                            <img src="../Images/art_camp/<?php echo $image ?>" width='50px' height='50px'>
-                                        <?php
                                         }
                                         ?>
                                     </td>

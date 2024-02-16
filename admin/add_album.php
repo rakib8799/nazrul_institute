@@ -15,7 +15,7 @@ if (isset($_POST['add_album'])) {
 
         $arr = array("jpg", "png", "jpeg");
 
-        if (isset($_FILES['pdf_file']['name']) && !empty($_FILES['pdf_file']['name'])) {
+        if (!empty($_FILES['pdf_file']['name'])) {
 
             $pdf_file_name = $_FILES['pdf_file']['name'];
             $pdf_file_tmp_name = $_FILES['pdf_file']['tmp_name'];

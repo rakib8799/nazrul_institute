@@ -87,10 +87,10 @@ if (isset($_POST['update'])) {
                                     <td><?php echo $researcher_salaryExp; ?></td>
                                     <td><?php echo $researcher_projectResultForDegree; ?></td>
                                     <td>
-                                        <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
+                                        <a href="../Files/project_submission_student/pdf_file/proposal/<?php echo $researcher_project_reportPdf ?>"><?php echo $researcher_project_reportPdf ?></a>
                                     </td>
                                     <td>
-                                        <a href="../Files/project_submission_student/pdf_file/<?php echo $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
+                                        <a href="../Files/project_submission_student/pdf_file/report/<?php echo $researcher_final_report_file ?>"><?php echo $researcher_final_report_file ?></a>
                                     </td>
                                     <td><?php echo $created_at; ?></td>
                                     <td>

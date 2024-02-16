@@ -84,10 +84,10 @@ if (isset($_POST['update'])) {
                                     <td><?php echo $advisor_project_salaryExp; ?></td>
                                     <td><?php echo $advisor_projectResultForDegree; ?></td>
                                     <td>
-                                        <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
+                                        <a href="../Files/project_submission_teacher/pdf_file/proposal/<?php echo $advisor_project_proposal_file ?>"><?php echo $advisor_project_proposal_file ?></a>
                                     </td>
                                     <td>
-                                        <a href="../Files/project_submission_teacher/pdf_file/<?php echo $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
+                                        <a href="../Files/project_submission_teacher/pdf_file/report/<?php echo $advisor_final_report_file ?>"><?php echo $advisor_final_report_file ?></a>
                                     </td>
                                     <td><?php echo $created_at; ?></td>
                                     <td>

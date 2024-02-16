@@ -6,8 +6,6 @@ if (!isset($_SESSION['author_id'])) {
 }
 ?>
 
-
-
 <?php include_once("author_linker.php") ?>
 
 <body style="font-family: 'Kalpurush', Arial, sans-serif">
@@ -19,7 +17,7 @@ if (!isset($_SESSION['author_id'])) {
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo">
           <a href="index.php" class="app-brand-link">
-            <!-- <img src="../Images/ICTBJ Logo.jpg" class="img-fluid" width="40vw" alt=""> -->
+            <!-- <img src="../Images/ICTBJ Logo.jpg" class="img-fluid" width="40vw" alt="<?php echo $image; ?>"=""> -->
             <span class="demo menu-text fw-bolder fs-4 m-auto"><?php if (isset($_SESSION['author_role'])) echo $_SESSION['author_role'] ?> প্যানেল</span>
           </a>
 
@@ -130,11 +128,11 @@ if (!isset($_SESSION['author_id'])) {
                       <?php
                       if ($author_role === "Teacher") {
                       ?>
-                        <img src="../Images/author/teacher/<?php echo $image; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="<?php echo ($image !== NULL) ? "../Images/author/teacher/" . $image : "./img/user.png" ?>" alt="<?php echo $image; ?>" class="w-px-50 h-auto rounded-circle" />
                       <?php
                       } else {
                       ?>
-                        <img src="../Images/author/student/<?php echo $image; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="<?php echo ($image !== NULL) ? "../Images/author/student/" . $image : "./img/user.png" ?>" alt="<?php echo $image; ?>" class="w-px-50 h-auto rounded-circle" />
                       <?php
                       }
                       ?>
@@ -149,11 +147,11 @@ if (!isset($_SESSION['author_id'])) {
                             <?php
                             if ($author_role === "Teacher") {
                             ?>
-                              <img src="../Images/author/teacher/<?php echo $image; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="<?php echo ($image !== NULL) ? "../Images/author/teacher/" . $image : "./img/user.png" ?>" alt="<?php echo $image; ?>" class="w-px-50 h-auto rounded-circle" />
                             <?php
                             } else {
                             ?>
-                              <img src="../Images/author/student/<?php echo $image; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="<?php echo ($image !== NULL) ? "../Images/author/student/" . $image : "./img/user.png" ?>" alt="<?php echo $image; ?>" class="w-px-50 h-auto rounded-circle" />
                             <?php
                             }
                             ?>
