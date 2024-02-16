@@ -101,11 +101,11 @@ if (isset($_GET['profile_id'])) {
                         <?php
                         if ($author_role === "Teacher") {
                         ?>
-                            <img src="../Images/author/teacher/<?php echo $image ?>" width="100px" alt="author_image">
+                            <img src="<?php echo ($image !== NULL) ? "../Images/author/teacher/" . $image : "./img/user.png" ?>" width="100px" alt="author_image">
                         <?php
                         } else if ($author_role === "Student") {
                         ?>
-                            <img src="../Images/author/student/<?php echo $image ?>" width="100px" alt="author_image">
+                            <img src="<?php echo ($image !== NULL) ? "../Images/author/student/" . $image : "./img/user.png" ?>" width="100px" alt="author_image">
                         <?php
                         }
                         ?>

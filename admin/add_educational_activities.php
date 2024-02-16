@@ -46,7 +46,7 @@ if (isset($_POST['add_educational_activities'])) {
             if (!in_array($path_info, $arr)) {
                 echo "<p class='text-danger text-bold text-center fs-5 mt-3'>অবশ্যই ছবির ফরম্যাট (JPG or JPEG or PNG) হতে হবে</p>";
             } else {
-                $insert_sql = "INSERT INTO `educational_activities`(`title`,`details`,`image`,`created_at`) VALUES('$title','$long_desc1','$educational_activities_image_name','$current_time')";
+                $insert_sql = "INSERT INTO `educational_activities`(`title`,`details`,`image`,`pdf_file`,`created_at`) VALUES('$title','$long_desc1','$educational_activities_image_name','','$current_time')";
 
                 $run_insert_qry = mysqli_query($conn, $insert_sql);
                 if ($run_insert_qry) {

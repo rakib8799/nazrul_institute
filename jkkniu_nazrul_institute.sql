@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2024 at 11:38 PM
+-- Generation Time: Feb 16, 2024 at 12:05 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -110,7 +110,7 @@ CREATE TABLE `art_camp` (
 --
 
 INSERT INTO `art_camp` (`id`, `title`, `details`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'নজরুল প্রতিকৃতি চিত্র : আর্ট-ক্যাম্প-২০১৮', '<p>নজরুল জন্মজয়ন্তী - ২০১৮ উপলক্ষে গত ১০মে ২০১৮খ্রি. তারিখে ইন্সটিটিউট অব নজরুল স্টাডিজ এবং চারুকলা বিভাগের যৌথ উদ্যোগে&nbsp;নজরুল প্রতিকৃতি চিত্র বিষয়ক <strong>&quot;নজরুল আর্ট ক্যাম্প&quot;</strong> অনুষ্ঠিত হয় । উক্ত আর্ট ক্যাম্পে চারুকলা বিভাগের ৩১জন শিক্ষার্থী অংশগ্রহণ করেন ।</p>\r\n', '65ce29f3c65cc.jpg,65ce29f3c67f7.jpg,65ce29f3c6a65.jpg', '2024-02-15 04:33:03', '2024-02-15 15:12:51');
+(32, 'নজরুল প্রতিকৃতি চিত্র : আর্ট-ক্যাম্প-২০১৮', '<p>নজরুল জন্মজয়ন্তী - ২০১৮ উপলক্ষে গত ১০মে ২০১৮খ্রি. তারিখে ইন্সটিটিউট অব নজরুল স্টাডিজ এবং চারুকলা বিভাগের যৌথ উদ্যোগে&nbsp;নজরুল প্রতিকৃতি চিত্র বিষয়ক&nbsp;<strong>&quot;নজরুল আর্ট ক্যাম্প&quot;</strong>&nbsp;অনুষ্ঠিত হয় । উক্ত আর্ট ক্যাম্পে চারুকলা বিভাগের ৩১জন শিক্ষার্থী অংশগ্রহণ করেন ।</p>\r\n', '[\"65cf37a8974a9.jpg\",\"65cf37a897713.jpg\",\"65cf37a8978f1.jpg\"]', '2024-02-16 10:23:36', '2024-02-16 10:23:36');
 
 -- --------------------------------------------------------
 
@@ -136,9 +136,10 @@ CREATE TABLE `author_information` (
 --
 
 INSERT INTO `author_information` (`author_id`, `author_name`, `author_email`, `author_contact_no`, `author_password`, `author_role`, `image`, `verification_code`, `email_verified_at`, `updated_at`) VALUES
-(2, 'Dr. Jannatul Ferdous', 'mkrcoding1998@gmail.com', '01727027277', '$2y$10$/u3FOMOtSe2H5ALZ0sqeteurrtfN9O93O1l4zkMTl6xurdWxkH.ci', 'Teacher', '6574d0f56c6d1.jpg', '330062', '2023-12-09 20:41:25', '2024-02-15 08:48:33'),
+(2, 'Dr. Jannatul Ferdous', 'mkrcoding1998@gmail.com', '01727027277', '$2y$10$HRzjLB3FL4CObJvAhDl6T.JqW3ORDEfF0nbxo7Dw8iEbxEGzA8b8q', 'Teacher', '6574d0f56c6d1.jpg', '330062', '2023-12-09 20:41:25', '2024-02-16 08:51:20'),
 (3, 'MK Rakib', 'mkrakib328@gmail.com', '01727027277', '$2y$10$Dlcc/uxKDO/9YckRJiV6oOwzyDjHX2K9ev/B3pxgzW8J2h9YLNJvi', 'Student', '65cc4ff38e070.jpg', '154954', '2024-02-14 05:30:27', '2024-02-15 08:48:33'),
-(4, 'Mehedi Khan', 'mkrdeveloper328@gmail.com', '01727027277', '$2y$10$.WRQ6TNSfh.J8LT/c94/SOtPVJWcuo8awrpw4VQosuY64jSe/vKIC', 'Student', 'NULL', '904899', '2023-12-09 20:33:09', '2024-02-15 08:48:33');
+(4, 'Mehedi Khan', 'mkrdeveloper328@gmail.com', '01727027277', '$2y$10$.WRQ6TNSfh.J8LT/c94/SOtPVJWcuo8awrpw4VQosuY64jSe/vKIC', 'Student', 'user.png', '904899', '2023-12-09 20:33:09', '2024-02-16 06:08:11'),
+(5, 'MKR Coding', 'mkrakib3281@gmail.com', '01727027277', '$2y$10$UiX0fozY6iRjsKGBfb/0R.FF3mo9sw5jmwp9yec4HyL.ti/thScYi', 'Student', '65cf101295ab9.jpg', '315050', '2024-02-16 06:11:06', '2024-02-16 07:34:42');
 
 -- --------------------------------------------------------
 
@@ -544,7 +545,8 @@ CREATE TABLE `notices` (
 
 INSERT INTO `notices` (`id`, `title`, `details`, `image`, `pdf_file`, `submission_date`, `created_at`, `updated_at`) VALUES
 (1, 'গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১ এবং এই বিশ্ববিদ্যালয়ের স্নাতকোত্তর পর্যায়ে নজরুল জীবন ও সৃষ্টিকর্ম বিষয়ক অভিসন্দর্ভ (Thesis) রচনার জন্য কোর্স শিক্ষক/গবেষণা তত্ত্বাবধায়কের সুপারিশসহ আবেদনপত্র আহবান ।</p>\r\n', '65ce70f00a5a3.png', '652947d48e777.pdf', '2021-09-05', '2024-02-15 05:38:31', '2024-02-15 20:15:44'),
-(2, 'গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২২', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২২ এবং এই বিশ্ববিদ্যালয়ের স্নাতকোত্তর পর্যায়ে নজরুল জীবন ও সৃষ্টিকর্ম বিষয়ক অভিসন্দর্ভ (Thesis) রচনার জন্য কোর্স শিক্ষক/গবেষণা তত্ত্বাবধায়কের সুপারিশসহ আবেদনপত্র আহবান ।</p>\r\n', '65ce70f7ee339.png', '652965486bc30.pdf', '2022-12-17', '2024-02-15 05:38:59', '2024-02-15 20:15:51');
+(2, 'গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২২', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২২ এবং এই বিশ্ববিদ্যালয়ের স্নাতকোত্তর পর্যায়ে নজরুল জীবন ও সৃষ্টিকর্ম বিষয়ক অভিসন্দর্ভ (Thesis) রচনার জন্য কোর্স শিক্ষক/গবেষণা তত্ত্বাবধায়কের সুপারিশসহ আবেদনপত্র আহবান ।</p>\r\n', '65ce70f7ee339.png', '652965486bc30.pdf', '2022-12-17', '2024-02-15 05:38:59', '2024-02-15 20:15:51'),
+(25, 'গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২৪', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২৪ এবং এই বিশ্ববিদ্যালয়ের স্নাতকোত্তর পর্যায়ে নজরুল জীবন ও সৃষ্টিকর্ম বিষয়ক অভিসন্দর্ভ (Thesis) রচনার জন্য কোর্স শিক্ষক/গবেষণা তত্ত্বাবধায়কের সুপারিশসহ আবেদনপত্র আহবান ।</p>\r\n', '65cf0dae56890.jpg', '65cf0dae56894.pdf', '2024-01-16', '2024-02-16 07:24:30', '2024-02-16 09:03:29');
 
 -- --------------------------------------------------------
 
@@ -622,7 +624,8 @@ CREATE TABLE `project_submission_student` (
 
 INSERT INTO `project_submission_student` (`id`, `researcher_author_id`, `researcher_notice_id`, `researcher_name_bd`, `researcher_name_en`, `researcher_roll`, `researcher_session`, `researcher_department`, `researcher_supervisor_name`, `researcher_supervisor_designation`, `researcher_supervisor_department`, `researcher_organization`, `researcher_project_title_bd`, `researcher_project_title_en`, `researcher_project_objective`, `researcher_project_details`, `researcher_project_desiredOutput`, `researcher_project_relToNationalDev`, `researcher_project_collectInfo`, `researcher_project_examDirector`, `researcher_project_reportPdf`, `researcher_project_sixMonthWorkSchedule`, `researcher_salaryExp`, `researcher_supervisorSalaryExp`, `researcher_fieldWorkExp`, `researcher_seminarExp`, `researcher_travelExp`, `researcher_itemsExp`, `researcher_reportExp`, `researcher_extraExp`, `researcher_sixMonthTotalExp`, `researcher_projectResultForDegree`, `researcher_final_report_file`, `paper_status`, `count`, `researcher_email`, `created_at`, `updated_at`) VALUES
 (25, 3, 20, 'মেহেদী খান রাকিব', 'MEHEDI KHAN RAKIB', '১৯১০২০১২', '২০১৮-১৯', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'ড. জান্নাতুল ফেরদৌস', 'প্রফেসর', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয়', 'নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট', 'WEBSITE FOR NAZRUL INSTITUTE', '<p>জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় - এর মাননীয় উপাচার্য এবং&nbsp;<strong>&quot;ইন্সটিটিউট অব নজরুল স্টাডিজ&quot;</strong></p>\r\n', '<p>জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় - এর মাননীয় উপাচার্য এবং&nbsp;<strong>&quot;ইন্সটিটিউট অব নজরুল স্টাডিজ&quot;</strong></p>\r\n', '<p>জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় - এর মাননীয় উপাচার্য এবং&nbsp;<strong>&quot;ইন্সটিটিউট অব নজরুল স্টাডিজ&quot;</strong></p>\r\n', '<p>জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় - এর মাননীয় উপাচার্য এবং&nbsp;<strong>&quot;ইন্সটিটিউট অব নজরুল স্টাডিজ&quot;</strong></p>\r\n', '<p>জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় - এর মাননীয় উপাচার্য এবং&nbsp;<strong>&quot;ইন্সটিটিউট অব নজরুল স্টাডিজ&quot;</strong></p>\r\n', '<p>জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় - এর মাননীয় উপাচার্য এবং&nbsp;<strong>&quot;ইন্সটিটিউট অব নজরুল স্টাডিজ&quot;</strong></p>\r\n', '65cc7d360d993.pdf', '<p>জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় - এর মাননীয় উপাচার্য এবং&nbsp;<strong>&quot;ইন্সটিটিউট অব নজরুল স্টাডিজ&quot;</strong></p>\r\n', '২৫০০০ টাকা মাত্র', '৩০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '৫০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '৪০০০০ টাকা মাত্র', '<p>জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয় - এর মাননীয় উপাচার্য এবং&nbsp;<strong>&quot;ইন্সটিটিউট অব নজরুল স্টাডিজ&quot;</strong></p>\r\n', '65cc7e99833fb.pdf', 0, 1, 'mkrakib328@gmail.com', '2024-02-14 10:31:22', '2024-02-15 09:02:33'),
-(26, 3, 21, 'মেহেদী খান রাকিব', 'MEHEDI KHAN RAKIB', '১৯১০২০১২', '২০১৮-১৯', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'ড. জান্নাতুল ফেরদৌস', 'প্রফেসর', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয়', 'নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট', 'WEBSITE FOR NAZRUL INSTITUTE', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '65cc7f4d3e45f.pdf', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '২৫০০০ টাকা মাত্র', '৩০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '৫০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '৪০০০০ টাকা মাত্র', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '65cc84f967bbe.pdf', 1, 1, 'mkrakib328@gmail.com', '2024-02-14 09:16:41', '2024-02-15 09:02:33');
+(26, 3, 21, 'মেহেদী খান রাকিব', 'MEHEDI KHAN RAKIB', '১৯১০২০১২', '২০১৮-১৯', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'ড. জান্নাতুল ফেরদৌস', 'প্রফেসর', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয়', 'নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট', 'WEBSITE FOR NAZRUL INSTITUTE', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '65cc7f4d3e45f.pdf', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '২৫০০০ টাকা মাত্র', '৩০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '৫০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '৪০০০০ টাকা মাত্র', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র</p>\r\n', '65cc84f967bbe.pdf', 1, 1, 'mkrakib328@gmail.com', '2024-02-14 09:16:41', '2024-02-15 09:02:33'),
+(28, 5, 25, 'মেহেদী খান', 'MEHEDI KHAN', '১৯১০২০১২', '২০১৮-১৯', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'ড. জান্নাতুল ফেরদৌস', 'প্রফেসর', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয়', 'নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট', 'WEBSITE FOR NAZRUL INSTITUTE', '<p>নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট</p>\r\n', '<p>নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট</p>\r\n', '<p>নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট</p>\r\n', '<p>নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট</p>\r\n', '<p>নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট</p>\r\n', '<p>নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট</p>\r\n', '65cf1a79d7b25.pdf', '<p>নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট</p>\r\n', '২৫০০০ টাকা মাত্র', '৩০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '৫০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '৪০০০০ টাকা মাত্র', '<p>নজরুল ইন্সটিটিউটের জন্য ওয়েবসাইট</p>\r\n', '65cf1fe4870fe.pdf', 1, 1, 'mkrakib3281@gmail.com', '2024-02-16 08:19:37', '2024-02-16 08:42:12');
 
 -- --------------------------------------------------------
 
@@ -690,7 +693,7 @@ CREATE TABLE `project_submission_teacher` (
 --
 
 INSERT INTO `project_submission_teacher` (`id`, `advisor_author_id`, `advisor_notice_id`, `advisor_name_designation_bd`, `advisor_name_designation_en`, `advisor_assistant_name_designation_bd`, `advisor_assistant_name_designation_en`, `advisor_department`, `advisor_organization`, `advisor_project_title_bd`, `advisor_project_title_en`, `advisor_project_relatedTopic`, `advisor_research_workPlace_university`, `advisor_research_workPlace_department`, `advisor_project_objective`, `advisor_project_details`, `advisor_project_desiredOutput`, `advisor_project_relToNationalDev`, `advisor_project_collectInfo`, `advisor_project_examDirector`, `advisor_project_proposal_file`, `advisor_project_sixMonthWorkSchedule`, `advisor_basic_facilities_forProject`, `advisor_basic_facilities_unavailable`, `advisor_applicant_appointment_period`, `advisor_performance_indicators`, `advisor_assessment_expertName`, `advisor_project_salaryExp`, `advisor_assisstantSalaryExp`, `advisor_unavailable_elementsExp`, `advisor_fieldWorkExp`, `advisor_seminarExp`, `advisor_travelExp`, `advisor_itemsExp`, `advisor_reportExp`, `advisor_extraExp`, `advisor_sixMonthTotalExp`, `advisor_prev_economicHelp`, `advisor_economicApproval`, `advisor_final_report_date`, `advisor_final_report_currentCondition`, `advisor_economicHelping_org`, `advisor_economicHelping_project`, `advisor_economicHelping_money`, `advisor_economicHelping_finishingDate`, `advisor_projectResultForDegree`, `advisor_final_report_file`, `paper_status`, `count`, `advisor_email`, `created_at`, `updated_at`) VALUES
-(5, 2, 2, 'e', 'e', 'c', 'c', 'c', 'c', 'c', 'c', 'জীবনী', 'c', 'c', '<p>e</p>\r\n\r\n<div id=\"gtx-trans\" style=\"position: absolute; left: 232px; top: 39px;\">\r\n<div class=\"gtx-trans-icon\">&nbsp;</div>\r\n</div>\r\n', '<p>c</p>\r\n', '<p>e</p>\r\n\r\n<div id=\"gtx-trans\" style=\"position: absolute; left: 78px; top: 39px;\">\r\n<div class=\"gtx-trans-icon\">&nbsp;</div>\r\n</div>\r\n', '<p>c</p>\r\n', '<p>c</p>\r\n', '<p>c</p>\r\n', '652965486bc30.pdf', '<p>c</p>\r\n', '<p>c</p>\r\n', '<p>c</p>\r\n', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', '<p>c</p>\r\n', 'N/A', 2, 2, 'mkrcoding1998@gmail.com', '2023-11-30 21:04:21', '2024-02-15 09:03:54');
+(6, 2, 25, 'প্রফেসর ড. এমএসটি. জান্নাতুল ফেরদৌস', 'PROFESSOR DR. MST. JANNATUL FERDOUS', 'মেহেদী খান রাকিব', 'MEHEDI KHAN RAKIB', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', 'জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয়', 'ইন্সটিটিউট অব নজরুল স্টাডিজ', 'INSTITUTE OF NAZRUL STUDIES', 'অন্যান্য', 'জাতীয় কবি কাজী নজরুল ইসলাম বিশ্ববিদ্যালয়', 'কম্পিউটার সায়েন্স এণ্ড ইঞ্জিনিয়ারিং', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '65cf22ca7c6d5.pdf', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', 'নেই', 'ভালো, টেকসই, নিরাপদ', 'তুষার কান্তি সাহা', '৩০০০০ টাকা মাত্র', '১০০০০ টাকা মাত্র', '২০০০ টাকা মাত্র', '৩০০০ টাকা মাত্র', '৫০০০ টাকা মাত্র', '৩০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '১০০০ টাকা মাত্র', '৫৫০০০ টাকা মাত্র', 'নেই', 'নেই', 'নেই', 'নেই', 'নেই', 'নেই', 'নেই', 'নেই', '<p><strong>&quot;নজরুল জীবন ও কর্মবিষয়ক&quot;&nbsp;</strong>গবেষণা প্রকল্পের প্রস্তাবনা আবেদনপত্র আহবান - ২০২১</p>\r\n', '65cf247333809.pdf', 1, 1, 'mkrcoding1998@gmail.com', '2024-02-16 08:55:01', '2024-02-16 09:01:39');
 
 -- --------------------------------------------------------
 
@@ -1238,13 +1241,13 @@ ALTER TABLE `album`
 -- AUTO_INCREMENT for table `art_camp`
 --
 ALTER TABLE `art_camp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `author_information`
 --
 ALTER TABLE `author_information`
-  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `conference`
@@ -1322,7 +1325,7 @@ ALTER TABLE `journal`
 -- AUTO_INCREMENT for table `library`
 --
 ALTER TABLE `library`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `memorandum`
@@ -1346,7 +1349,7 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `officers`
@@ -1358,13 +1361,13 @@ ALTER TABLE `officers`
 -- AUTO_INCREMENT for table `project_submission_student`
 --
 ALTER TABLE `project_submission_student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `project_submission_teacher`
 --
 ALTER TABLE `project_submission_teacher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `publication_book`
