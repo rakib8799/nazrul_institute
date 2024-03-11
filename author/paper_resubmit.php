@@ -38,6 +38,9 @@ if (isset($_SESSION['author_role'], $_SESSION['resubmission_paper_id']) && $_SES
         $researcher_sixMonthTotalExp = $_SESSION['researcher_sixMonthTotalExp'];
         $long_desc8 = $_SESSION['long_desc8'];
 
+        echo "<pre>";
+        print_r($_SESSION);
+
         // $researcher_final_report_file = 'N/A';
 
         $current_time = new DateTime();
@@ -46,7 +49,7 @@ if (isset($_SESSION['author_role'], $_SESSION['resubmission_paper_id']) && $_SES
         $researcher_author_id = $_SESSION['author_id'];
         // $researcher_notice_id = $_SESSION['researcher_notice_id'];
 
-        $select_from_new_paper = "SELECT researcher_notice_id FROM `project_submission_student` WHERE `researcher_author_id` = '$researcher_author_id' AND `id`='$resubmission_paper_id'";
+        $select_from_new_paper = "SELECT researcher_notice_id FROM `project_submission_student` WHERE `researcher_author_id` = '$researcher_author_id' AND `id`='$resubmission_paper_id' AND paper_status=0";
         $run_select_from_new_paper = mysqli_query($conn, $select_from_new_paper);
         if (mysqli_num_rows($run_select_from_new_paper) > 1) {
             $row = mysqli_fetch_assoc($run_select_from_new_paper);
@@ -62,24 +65,24 @@ if (isset($_SESSION['author_role'], $_SESSION['resubmission_paper_id']) && $_SES
             // extract($row);
             $researcher_notice_id = $row['researcher_notice_id'];
 
-            $select_from_new_paper1 = "SELECT * FROM `notices` WHERE id='$researcher_notice_id'";
-            $run_select_from_new_paper1 = mysqli_query($conn, $select_from_new_paper1);
-            if (mysqli_num_rows($run_select_from_new_paper1) > 0) {
-                $row1 = mysqli_fetch_assoc($run_select_from_new_paper1);
-                extract($row1);
-                $new_date = date('Y-m-d');
-                $diff = strtotime($submission_date) - strtotime($new_date);
-                $date_diff = round($diff / 86400);
-                // echo $date_diff, "  ";
-                if ($date_diff < 0) {
-                    echo "<p style='height: 80vh;' class='text-danger text-bold text-center fs-4 mt-3 d-flex justify-content-center align-items-center'>আপনার প্রকল্পের প্রস্তাবনা জমা দেওয়ার সময় শেষ। অনুরোধ করে পরবর্তী নোটিশের আগ পর্যন্ত অপেক্ষা করুন।</p>";
-                } else {
-                    if (isset($_SESSION['pdf_file'], $_SESSION['pdf_file_tmp_name']) && !empty($_SESSION['pdf_file'])) {
+            // $select_from_new_paper1 = "SELECT * FROM `notices` WHERE id='$researcher_notice_id'";
+            // $run_select_from_new_paper1 = mysqli_query($conn, $select_from_new_paper1);
+            // if (mysqli_num_rows($run_select_from_new_paper1) > 0) {
+            //     $row1 = mysqli_fetch_assoc($run_select_from_new_paper1);
+            //     extract($row1);
+            //     $new_date = date('Y-m-d');
+            //     $diff = strtotime($submission_date) - strtotime($new_date);
+            //     $date_diff = round($diff / 86400);
+            //     if ($date_diff < 0) {
+            //         echo "<p style='height: 80vh;' class='text-danger text-bold text-center fs-4 mt-3 d-flex justify-content-center align-items-center'>আপনার প্রকল্পের প্রস্তাবনা জমা দেওয়ার সময় শেষ। অনুরোধ করে পরবর্তী নোটিশের আগ পর্যন্ত অপেক্ষা করুন।</p>";
+            //     } else {
+            if (isset($_SESSION['pdf_file'], $_SESSION['pdf_file_tmp_name']) && !empty($_SESSION['pdf_file'])) {
 
-                        // echo $researcher_author_id;
+                // echo $researcher_author_id;
 
-                        $update_sql = "UPDATE project_submission_student 
-                        SET researcher_name_bd='$researcher_name_bd', 
+                $update_sql = "UPDATE project_submission_student 
+                        SET 
+                        researcher_name_bd='$researcher_name_bd', 
                         researcher_name_en='$researcher_name_en', 
                         researcher_roll='$researcher_roll', 
                         researcher_session='$researcher_session', 
@@ -108,14 +111,14 @@ if (isset($_SESSION['author_role'], $_SESSION['resubmission_paper_id']) && $_SES
                         paper_status=2,
                         count=2 
                         WHERE  id='$resubmission_paper_id'";
-                        $run_insert_qry = mysqli_query($conn, $update_sql);
+                $run_insert_qry = mysqli_query($conn, $update_sql);
 
-                        if ($run_insert_qry) {
-                            // move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_student/pdf_file/proposal/' . $pdf_file);
+                if ($run_insert_qry) {
+                    // move_uploaded_file($pdf_file_tmp_name, '../Files/project_submission_student/pdf_file/proposal/' . $pdf_file);
 
-                            $receiver = $_SESSION['author_email'];
-                            $subject = "Confirmation of Project Proposal Re-Submission";
-                            $body = '<p>Dear Researcher(ID-' . $researcher_author_id . '),<br/>Thank you very much for re-uploading the project proposal to the INS-' . $current_year . ' submission system. We shall be in touch with you when the review of the project will be completed.<br/><br/>
+                    $receiver = $_SESSION['author_email'];
+                    $subject = "Confirmation of Project Proposal Re-Submission";
+                    $body = '<p>Dear Researcher(ID-' . $researcher_author_id . '),<br/>Thank you very much for re-uploading the project proposal to the INS-' . $current_year . ' submission system. We shall be in touch with you when the review of the project will be completed.<br/><br/>
         
                     Best Regards,<br/>
                     Director of the Institute of Nazrul Studies,<br/>
@@ -123,46 +126,47 @@ if (isset($_SESSION['author_role'], $_SESSION['resubmission_paper_id']) && $_SES
                     Trishal, Mymensingh-2224, Bangladesh <br/>
                     E-Mail: <a href="ins.jkkniu@gmail.com">ins.jkkniu@gmail.com</a>
                     </p>';
-                            $send_mail = send_mail($receiver, $subject, $body);
+                    $send_mail = send_mail($receiver, $subject, $body);
 ?>
-                            <script>
-                                // let text = "Do you really want to submit the paper?";
-                                // if (confirm(text) == true) {
-                                window.alert("আপনার প্রকল্পটির প্রস্তাবনা সফলভাবে সাবমিট হয়েছে। আপনাকে একটি কনফার্মেশন ইমেইল পাঠানো হয়েছে।");
-                                window.location = "resubmission_papers_updated.php";
-                                // }
-                                // else{
-                                //     window.location = "new_paper_submission.php";
-                                // }
-                            </script>
-                        <?php
+                    <script>
+                        // let text = "Do you really want to submit the paper?";
+                        // if (confirm(text) == true) {
+                        window.alert("আপনার প্রকল্পটির প্রস্তাবনা সফলভাবে সাবমিট হয়েছে। আপনাকে একটি কনফার্মেশন ইমেইল পাঠানো হয়েছে।");
+                        window.location = "resubmission_papers_updated.php";
+                        // }
+                        // else{
+                        //     window.location = "new_paper_submission.php";
+                        // }
+                    </script>
+                <?php
 
 
-                            // header("location: resubmission_papers.php");
-                            // ob_end_flush();
-                        } else {
-                            echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য ইনসার্ট হয়নি</p>";
-                        }
-                    } else {
-                        $update_sql = "UPDATE project_submission_student 
-                        SET researcher_name_bd='$researcher_name_bd',
-                        researcher_name_en='$researcher_name_en',
-                        researcher_roll='$researcher_roll',
-                        researcher_session='$researcher_session',
-                        researcher_department='$researcher_department',
-                        researcher_supervisor_name='$researcher_supervisor_name',researcher_supervisor_designation='$researcher_supervisor_designation',researcher_supervisor_department='$researcher_supervisor_department',researcher_organization='$researcher_organization',
+                    // header("location: resubmission_papers.php");
+                    // ob_end_flush();
+                } else {
+                    echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য ইনসার্ট হয়নি</p>";
+                }
+            } else {
+                $update_sql = "UPDATE project_submission_student 
+                        SET 
+                        researcher_name_bd='$researcher_name_bd', 
+                        researcher_name_en='$researcher_name_en', 
+                        researcher_roll='$researcher_roll', 
+                        researcher_session='$researcher_session', 
+                        researcher_department='$researcher_department', 
+                        researcher_supervisor_name='$researcher_supervisor_name', researcher_supervisor_designation='$researcher_supervisor_designation',researcher_supervisor_department='$researcher_supervisor_department',researcher_organization='$researcher_organization', 
                         researcher_project_title_bd='$researcher_project_title_bd',
-                        researcher_project_title_en='$researcher_project_title_en',
+                        researcher_project_title_en='$researcher_project_title_en', 
                         researcher_project_objective='$long_desc1',
-                        researcher_project_details='$long_desc2',
-                        researcher_project_desiredOutput='$long_desc3',
-                        researcher_project_relToNationalDev='$long_desc4,
+                        researcher_project_details='$long_desc2', 
+                        researcher_project_desiredOutput='$long_desc3', 
+                        researcher_project_relToNationalDev='$long_desc4, 
                         researcher_project_collectInfo='$long_desc5',
                         researcher_project_examDirector='$long_desc6',
                         researcher_project_sixMonthWorkSchedule='$long_desc7',
-                        researcher_salaryExp='$researcher_salaryExp',
+                        researcher_salaryExp='$researcher_salaryExp', 
                         researcher_supervisorSalaryExp='$researcher_supervisorSalaryExp',
-                        researcher_fieldWorkExp='$researcher_fieldWorkExp',
+                        researcher_fieldWorkExp='$researcher_fieldWorkExp', 
                         researcher_seminarExp='$researcher_seminarExp',
                         researcher_travelExp='$researcher_travelExp',
                         researcher_itemsExp='$researcher_itemsExp',
@@ -173,12 +177,12 @@ if (isset($_SESSION['author_role'], $_SESSION['resubmission_paper_id']) && $_SES
                         paper_status=2,
                         count=2 
                         WHERE id='$resubmission_paper_id'";
-                        $run_insert_qry = mysqli_query($conn, $update_sql);
-                        if ($run_insert_qry) {
+                $run_insert_qry = mysqli_query($conn, $update_sql);
+                if ($run_insert_qry) {
 
-                            $receiver = $_SESSION['author_email'];
-                            $subject = "Confirmation of Project Proposal Re-Submission";
-                            $body = '<p>Dear Researcher(ID-' . $researcher_author_id . '),<br/>Thank you very much for re-uploading the project proposal to the INS-' . $current_year . ' submission system. We shall be in touch with you when the review of the project will be completed.<br/><br/>
+                    $receiver = $_SESSION['author_email'];
+                    $subject = "Confirmation of Project Proposal Re-Submission";
+                    $body = '<p>Dear Researcher(ID-' . $researcher_author_id . '),<br/>Thank you very much for re-uploading the project proposal to the INS-' . $current_year . ' submission system. We shall be in touch with you when the review of the project will be completed.<br/><br/>
     
             Best Regards,<br/>
             Director of the Institute of Nazrul Studies,<br/>
@@ -186,31 +190,31 @@ if (isset($_SESSION['author_role'], $_SESSION['resubmission_paper_id']) && $_SES
             Trishal, Mymensingh-2224, Bangladesh <br/>
             E-Mail: <a href="ins.jkkniu@gmail.com">ins.jkkniu@gmail.com</a>
             </p>';
-                            $send_mail = send_mail($receiver, $subject, $body);
-                        ?>
-                            <script>
-                                // let text = "Do you really want to submit the paper?";
-                                // if (confirm(text) == true) {
-                                window.alert("আপনার প্রকল্পটির প্রস্তাবনা সফলভাবে সাবমিট হয়েছে। আপনাকে একটি কনফার্মেশন ইমেইল পাঠানো হয়েছে।");
-                                window.location = "resubmission_papers_updated.php";
-                                // }
-                                // else{
-                                //     window.location = "new_paper_submission.php";
-                                // }
-                            </script>
-                            <?php
+                    $send_mail = send_mail($receiver, $subject, $body);
+                ?>
+                    <script>
+                        // let text = "Do you really want to submit the paper?";
+                        // if (confirm(text) == true) {
+                        window.alert("আপনার প্রকল্পটির প্রস্তাবনা সফলভাবে সাবমিট হয়েছে। আপনাকে একটি কনফার্মেশন ইমেইল পাঠানো হয়েছে।");
+                        window.location = "resubmission_papers_updated.php";
+                        // }
+                        // else{
+                        //     window.location = "new_paper_submission.php";
+                        // }
+                    </script>
+                    <?php
 
 
-                            // header("location: resubmission_papers.php");
-                            // ob_end_flush();
-                        } else {
-                            echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য ইনসার্ট হয়নি</p>";
-                        }
-                    }
+                    // header("location: resubmission_papers.php");
+                    // ob_end_flush();
+                } else {
+                    echo "<p class='text-danger text-bold text-center fs-5 mt-3'>কোনো তথ্য ইনসার্ট হয়নি</p>";
                 }
             }
         }
     }
+    //     }
+    // }
     // else {
     //     echo "<p class='text-danger text-bold text-center fs-5 mt-3'>Data is not found</p>";
     // }
@@ -322,7 +326,7 @@ if (isset($_SESSION['author_role'], $_SESSION['resubmission_paper_id']) && $_SES
         E-Mail: <a href="ins.jkkniu@gmail.com">ins.jkkniu@gmail.com</a>
         </p>';
                                 $send_mail = send_mail($receiver, $subject, $body);
-                            ?>
+                    ?>
                                 <script>
                                     // let text = "Do you really want to submit the paper?";
                                     // if (confirm(text) == true) {

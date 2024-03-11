@@ -56,7 +56,7 @@ $obj = new BanglaNumberToWord();
             ?>
          </div>
       </div>
-      <!-- <div class="col-md-3 col-12 mt-2">
+      <div class="col-md-3 col-12 mt-2">
          <div class="card shadow p-3 mb-5" style="border-radius: 8px; height: 15vh;">
             <h5 style="height: 70%;"><i class="fa-solid fa-check-double m-1"></i> ত্রুটিযুক্ত প্রকল্পগুলো</h5>
             <?php
@@ -101,7 +101,7 @@ $obj = new BanglaNumberToWord();
             }
             ?>
          </div>
-      </div> -->
+      </div>
 
       <!-- <div class="col-md-3">
          <div class="card shadow p-3 mb-5">
